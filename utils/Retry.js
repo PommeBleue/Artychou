@@ -1,3 +1,6 @@
+/**
+ *
+ */
 class Retry {
     constructor(client, { toRetry = null, delayMs = 100, maxTries = 5}) {
 
@@ -18,7 +21,7 @@ class Retry {
                 if(tries >= params.maxTries) {
                     return `Error while executing ${params.toRetry.name} : ${e}`
                 }
-                this.client.func.delay(params.delayMs).then(params.toRetry());
+                this.client.func.delayAsync(params.delayMs).then(params.toRetry());
             }
         }
         return `Error. Please make sure that tries < maxTries.`
