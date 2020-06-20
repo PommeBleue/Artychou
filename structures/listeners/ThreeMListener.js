@@ -12,7 +12,7 @@ class ThreeMListener {
         } else {
             if(message.content === this.map.get(this.initialId.id)) {
                 if(this.map.size < 3) {
-                    for(let key of this.s.keys()) {
+                    for(let key of this.map.keys()) {
                         if (message.author.id === key) return;
                     }
                     this.map.set(message.author.id, message.content);
@@ -28,3 +28,5 @@ class ThreeMListener {
         }
     }
 }
+
+module.exports = ThreeMListener;

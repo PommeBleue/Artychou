@@ -79,14 +79,6 @@ const ArtychouConfig =  {
 
     dir: "/Users/mac/WebstormProjects/artychou2",
 
-    defaultUser: {
-        bal: 200,
-        daily: 0,
-        admin: false,
-        moderator: false,
-        botOwner: false
-    },
-
 };
 
 module.exports = ArtychouConfig;

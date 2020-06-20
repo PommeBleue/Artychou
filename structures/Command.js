@@ -6,11 +6,12 @@ class Command {
         usage = 'Pas de format recommendé',
         enabled = true,
         guildOnly = false,
+        targetCommand = false,
         aliases = [],
         permLevel = "User"
     }) {
         this.client = client;
-        this.conf = { enabled, guildOnly, aliases, permLevel };
+        this.conf = { enabled, guildOnly, aliases, permLevel, targetCommand };
         this.help = { name, description, category, usage };
     }
 }

@@ -6,6 +6,7 @@ const Handler = require('./structures/handlers/Handler');
 const SettingsHandler = require("./structures/handlers/SettingsHandler")
 const DataBaseService = require("./database/DataBaseService");
 const UserManager = require("./structures/managers/UserManager");
+const ThreeMListener = require("./structures/listeners/ThreeMListener");
 
 class Artychou extends Client {
     constructor(options) {
@@ -18,6 +19,10 @@ class Artychou extends Client {
         this.dbService = new DataBaseService(this).init();
 
         this.usermanager = new UserManager(this).init();
+
+        this.Ilisteners = {
+            tml: new ThreeMListener(this),
+        }
 
         this.func = require("./utils/UtilFunctions");
 
@@ -32,7 +37,6 @@ class Artychou extends Client {
 
 const client = new Artychou({
     presence: {
-        status: "dnd",
         activity: {
             name: "fracasser Yuuki",
             type: 0

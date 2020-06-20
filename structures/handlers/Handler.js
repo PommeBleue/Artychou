@@ -24,7 +24,6 @@ module.exports = class ArtychouHandler {
         klaw(path.join(this.client.config.dir, "commands")).on("data", (item) => {
             const cmdFile = path.parse(item.path);
             if(!cmdFile || cmdFile.ext !== ".js") return;
-            console.log(cmdFile.name);
             const response = this.loadCommand(cmdFile.dir, `${cmdFile.name}${cmdFile.ext}`);
             if(response) this.client.logger.error(response);
         });
@@ -32,13 +31,19 @@ module.exports = class ArtychouHandler {
         fs.readdir(path.join(this.client.config.dir, "events"), (err, files) => {
            files.forEach(file => {
                const evtName = file.split(".")[0];
-               this.client.logger.log(`Loading Event ${evtName}`);
+               this.client.logger.log(`Loading Event [${evtName}]`);
                const event = new (require(path.join(this.client.config.dir, "events", file)))(this.client);
                //Cette ligne de code est géniale, je dis ça je dis rien.
                this.client.on(evtName, (...args) => event.run(...args));
                delete require.cache[require.resolve(path.join(this.client.config.dir, "events", file))];
            });
         });
+
+        this.client.levelCache = {};
+        for (let i = 0; i < this.client.config.permLevels.length; i++) {
+            const thisLevel = this.client.config.permLevels[i];
+            this.client.levelCache[thisLevel.name] = thisLevel.level;
+        }
 
         await this.client.login(this.client.config.token);
 
@@ -47,7 +52,7 @@ module.exports = class ArtychouHandler {
     loadCommand(cPath, cName){
         try {
             const props = new (require(`${cPath}${path.sep}${cName}`))(this.client);
-            this.client.logger.log(`Chargement de la commande ${props.help.name}`);
+            this.client.logger.cmd(`Loading command [${props.help.name}]`);
             props.conf.location = cPath;
             if(props.init) {
                 props.init(this.client);
