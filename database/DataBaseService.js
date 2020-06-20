@@ -22,6 +22,28 @@ class DataBaseService {
         return table;
     }
 
+    async AddInTableAsync(type, object) {
+        let db = this.db;
+        try {
+            db.table(type).insert(object).run();
+        } catch (e)  {
+            throw e;
+            return;
+        }
+        return this;
+    }
+
+    async UpdateInTableAsync(type, object) {
+        let db = this.db;
+        try {
+            db.table(type).get(object.id).update(object).run();
+        } catch (e) {
+            throw e;
+            return
+        }
+        return this;
+    }
+
 };
 
 module.exports = DataBaseService;

@@ -8,10 +8,6 @@ module.exports = class {
         //If the user is a bot, return;
         if(message.author.bot) return;
 
-        if(!this.client.dbHandler.exists(this.client.dbHandler.getUserById(message.author.id))){
-            await this.client.dbHandler.createUser(this.client.dbHandler, message.author, this.client.config.defaultUser).saveNew();
-        }
-
         if(message.guild && !message.channel.permissionsFor(message.guild.me).missing("SEND_MESSAGES")) return;
 
         const settings = this.client.config.defaultSettings;
@@ -24,7 +20,7 @@ module.exports = class {
         if(message.content.indexOf(message.settings.prefix) !== 0) {
             const prefixMention = new RegExp(`^<@!?${this.client.user.id}> ?$`);
             if (message.content.match(prefixMention)) {
-                return message.channel.send(`Mon nom à moi est **${this.client.user.tag}** ||C'est quoi ton numéro ?||`);
+                return message.channel.send(`Mon nom à moi est **${this.client.user.tag}** ! ||C'est quoi ton numéro ?||`);
             }
             return;
         }

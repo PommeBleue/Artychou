@@ -58,7 +58,7 @@ module.exports = class ArtychouHandler {
             }
             return false;
         } catch (e) {
-            return `Je n'arrive pas à charger la commande ${cName} : ${e}`
+            return `Failed to load ${cName} : ${e}`
         }
     }
 
@@ -69,7 +69,7 @@ module.exports = class ArtychouHandler {
         } else if (this.aliases.has(cName)) {
             command = this.aliases.get(cName);
         }
-        if(!command) return `Il semble que la commande ${cName} n'existe pas, ou bien n'est pas mise dans le bon dossier.`
+        if(!command) return `It seems like the command ${cName} does not exist, or is it in the wrong folder ?`
 
         delete require.cache[require.resolve(`${cPath}${path.sep}${cName}.js`)];
         return false;

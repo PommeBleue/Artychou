@@ -12,7 +12,7 @@ const config =  {
 
     "hysteria": [],
 
-    "token": "NzA5OTE0OTQwNDk2MTUwNTM4.XuoQQA.xkfcQwaWXf_2YuDWu4ZyxHwsNxI",
+    "token": "NzA5OTE0OTQwNDk2MTUwNTM4.Xu1MAA.4dSGE1erWEpwcgbiIfbuCczrbAQ",
 
     "defaultSettings" : {
         "prefix": "tip",

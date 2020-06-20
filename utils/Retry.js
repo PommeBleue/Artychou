@@ -2,10 +2,11 @@
  *
  */
 class Retry {
-    constructor(client, { toRetry = null, delayMs = 100, maxTries = 5}) {
+    constructor(client, toRetry, {delayMs = 100, maxTries = 5}) {
 
         this.client = client;
-        this.params = {toRetry, delayMs, maxTries};
+        this.toRetry = toRetry;
+        this.params = {delayMs, maxTries};
 
         this.init();
     }
@@ -15,13 +16,13 @@ class Retry {
         let tries = 0;
         while(tries < params.maxTries) {
             try {
-                return params.toRetry();
+                return this.toRetry();
             } catch (e) {
                 tries ++;
                 if(tries >= params.maxTries) {
-                    return `Error while executing ${params.toRetry.name} : ${e}`
+                    return `Error while executing ${this.toRetry.name} : ${e}`
                 }
-                this.client.func.delayAsync(params.delayMs).then(params.toRetry());
+                this.client.func.delayAsync(params.delayMs).then(this.toRetry());
             }
         }
         return `Error. Please make sure that tries < maxTries.`

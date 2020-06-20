@@ -5,7 +5,7 @@ class EmbedBuilder extends MessageEmbed {
     constructor() {
         super();
 
-        this.fields = null;
+        this.fields = new FieldsArray();
     }
 
     setFieldsArray(fieldsArray) {
