@@ -1,8 +1,8 @@
-/*const { config } = require('dotenv');
+const { config } = require('dotenv');
 
 config({
     path: __dirname + "/.env"
-})*/
+})
 
 const config =  {
 
@@ -12,7 +12,7 @@ const config =  {
 
     "hysteria": [],
 
-    "token": "NzA5OTE0OTQwNDk2MTUwNTM4.Xu1MAA.4dSGE1erWEpwcgbiIfbuCczrbAQ",
+    "token": process.env.TOKEN,
 
     "defaultSettings" : {
         "prefix": "tip",
