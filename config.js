@@ -4,7 +4,7 @@ config({
     path: __dirname + "/.env"
 })
 
-const config =  {
+const ArtychouConfig =  {
 
     "owner": "",
 
@@ -89,4 +89,4 @@ const config =  {
 
 };
 
-module.exports = config;
+module.exports = ArtychouConfig;
