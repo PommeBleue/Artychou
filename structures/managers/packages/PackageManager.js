@@ -4,11 +4,16 @@ module.exports = class InternalPackages {
     constructor(client){
         this.client = client;
         this.structures = ["structures", {
-            command: { argument: "test" },
-            embed: { embedbuilder: "test2" }
+            command: { argument: "Argument" },
+            embed: { embedbuilder: "EmbedBuilder"},
+            listeners: {threemlistener: "ThreeMListener"},
+        }];
 
-        }]
-        this.packagesMap = new Collection();
+        this.packages = {};
+
+        this.currentForLoop = 0;
+        this.currentDirectory = [];
+        this.directories = [];
     }
 
     init() {
@@ -16,30 +21,54 @@ module.exports = class InternalPackages {
     }
 
 
-    getPackagesInStructures(){
+    reverseSlice(int, array) {
+        return array.reverse().slice(array.length - int );
+    }
+
+    getPackagesInStructures() {
+        let dir;
         for(let k in Object.keys(this.structures[1])) {
             let key = Object.keys(this.structures[1])[k];
+            this.currentForLoop = 0;
+            this.currentDirectory = [];
+            this.currentDirectory.push(key);
             let element = this.structures[1][key];
             if(element instanceof Object) {
+                this.currentForLoop++;
                 for(let k2 in Object.keys(element)) {
-                    let key2 = Object.keys(element)[k2]
-                    this.VerifyKeyInObject(element[key2], key2);
+                    let key2 = Object.keys(element)[k2];
+                    this.currentDirectory = this.reverseSlice(this.currentForLoop, this.currentDirectory).reverse();
+                    this.currentDirectory.push(key2);
+                    this.VerifyKeyInObject(element[key2]);
                 }
             } else {
-                this.packagesMap.set(key, element);
+                this.currentDirectory.push(element);
+                dir = this.currentDirectory.join(path.sep)
+                this.directories.push(dir);
+                this.packages[element] = require(`../../${dir}`);
             }
         }
     }
 
-    VerifyKeyInObject(element, key) {
+    VerifyKeyInObject(element) {
+        let dir;
         if(element instanceof Object) {
+            this.currentForLoop++;
             for(let k in Object.keys(element)) {
-                let key = Object.keys(element)[k]
+                let key = Object.keys(element)[k];
+                console.log(this.currentDirectory + ' ' + this.currentForLoop);
+                this.currentDirectory = this.reverseSlice(this.currentForLoop, this.currentDirectory).reverse();
+                console.log(this.currentDirectory);
+                this.currentDirectory.push(key);
                 let newElement = element[key];
                 this.VerifyKeyInObject(newElement, key);
             }
+            this.currentForLoop = this.currentForLoop - 1;
         } else {
-            this.packagesMap.set(key, element);
+            this.currentDirectory.pop();
+            this.currentDirectory.push(element);
+            dir = this.currentDirectory.join(path.sep)
+            this.directories.push(dir);
         }
     }
 }
