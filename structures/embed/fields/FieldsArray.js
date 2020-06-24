@@ -20,3 +20,5 @@ class FieldsArray {
     }
 
 }
+
+module.exports = FieldsArray;

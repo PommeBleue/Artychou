@@ -16,7 +16,8 @@ module.exports.delayAsync = async (time) => {
  * @param message
  * @param client
  * @returns {number}
- * @description Calculates the level of the user that sent the message.
+ * @description Calculates the level of the user that sent the message. Voilà c'est tout ce que j'ai à dire là-dessus,
+ * ET PUIS QUOI ENCORE HEIN, JE DOIS TOUT EXPLIQUER ? VOUS SAVEZ LIRE NON, ALORS LISEZ CE CODE POUR LE COMPRENDRE.
  */
 module.exports.permlevel = (message, client) => {
         let permlvl = 0;

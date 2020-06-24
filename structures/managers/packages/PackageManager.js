@@ -1,12 +1,10 @@
-const { Collection } = require('discord.js');
+const path = require("path");
 
-module.exports = class InternalPackages {
+class InternalPackages {
     constructor(client){
         this.client = client;
         this.structures = ["structures", {
-            command: { argument: "Argument" },
-            embed: { embedbuilder: "EmbedBuilder"},
-            listeners: {threemlistener: "ThreeMListener"},
+            Listeners: { argument: "ThreeMListener" }
         }];
 
         this.packages = {};
@@ -18,6 +16,14 @@ module.exports = class InternalPackages {
 
     init() {
         this.getPackagesInStructures();
+        console.log(this.directories);
+        return this;
+    }
+
+    get(name){
+        let module = this.packages[name];
+        if(!module) return;
+        return module;
     }
 
 
@@ -45,7 +51,7 @@ module.exports = class InternalPackages {
                 this.currentDirectory.push(element);
                 dir = this.currentDirectory.join(path.sep)
                 this.directories.push(dir);
-                this.packages[element] = require(`../../${dir}`);
+                this.packages[element] = require(`../../../modules/${dir}`);
             }
         }
     }
@@ -56,9 +62,7 @@ module.exports = class InternalPackages {
             this.currentForLoop++;
             for(let k in Object.keys(element)) {
                 let key = Object.keys(element)[k];
-                console.log(this.currentDirectory + ' ' + this.currentForLoop);
                 this.currentDirectory = this.reverseSlice(this.currentForLoop, this.currentDirectory).reverse();
-                console.log(this.currentDirectory);
                 this.currentDirectory.push(key);
                 let newElement = element[key];
                 this.VerifyKeyInObject(newElement, key);
@@ -67,8 +71,13 @@ module.exports = class InternalPackages {
         } else {
             this.currentDirectory.pop();
             this.currentDirectory.push(element);
-            dir = this.currentDirectory.join(path.sep)
+            dir = this.currentDirectory.join(path.sep);
             this.directories.push(dir);
+            let obj = require(`../../../modules/${dir}`);
+            let obj2 = new obj();
+            this.packages[element] = obj2;
         }
     }
 }
+
+module.exports = InternalPackages;

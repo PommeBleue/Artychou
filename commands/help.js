@@ -7,13 +7,15 @@ class Help extends Command {
             description: "Vous aide un peu.",
             category: "util-public",
             usage: "help [command]",
-            targetCommand: false,
-            aliases: ["?", "h", "aide-moi_slp"]
+            aliases: ["?", "h", "aide-moi_slp"],
+            params: [
+
+            ]
         });
     }
 
     async run(message, args, lvl) {
-
+        await message.channel.send("La commande help n'est toujours pas configurée, pute.");
     }
 }
 

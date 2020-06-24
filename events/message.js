@@ -13,7 +13,7 @@ module.exports = class {
         const settings = this.client.config.defaultSettings;
 
         //We are linking some stuff to the message itself so it's easy to access in the command class.
-        message.settings = settings;
+        message.settings = this.client.settingsHandler.getSettings(message.guild);
         message.users = this.client.usermanager.users;
         let prefix = message.settings.prefix;
 
@@ -44,6 +44,10 @@ module.exports = class {
         if (cmd && !message.guild && cmd.conf.guildOnly)
             return message.channel.send("Yo petite pute, cette commande ne peut pas être executée dans un DMChannel, il faut se rendre dans un serveur où j'existe pour ça.");
 
+        if(!message.channel.guild) return;
+
+        if(!cmd) return;
+
         if (level < this.client.levelCache[cmd.conf.permLevel]) {
             if (settings.systemNotice && settings.systemNotice === "true") {
                 return message.channel.send(`You do not have permission to use this command.
@@ -53,8 +57,6 @@ module.exports = class {
                 return;
             }
         }
-
-        if(!cmd) return;
 
         try {
             cmd.run(message, args, level);

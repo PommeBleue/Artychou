@@ -40,6 +40,20 @@ class UserManager {
         }
     }
 
+    UpdateUserLocal(id, user) {
+        try {
+            this.users.set(id, user);
+            return this;
+        } catch (e) {
+            throw e;
+            return false;
+        }
+    }
+
+    AddUserLocal(user) {
+        this.users.set(user.id, user)
+    }
+
     async UpdateUserAsync(user) {
         let response;
         try {
