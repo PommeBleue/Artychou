@@ -13,7 +13,10 @@ class Parse {
 
     init() {
         const params = this.params;
-        if((params.length === 0) || (this.args.length === 0)) return [];
+        if((params.length === 0)){
+            if(this.args.length === 0) return {};
+            return {".":this.args};
+        }
         this.parseOptions = new ParseOptions(params);
         const opts = this.parseOptions.getOptions();
         const parsedObject = this.parse(opts);
@@ -44,16 +47,22 @@ class Parse {
     fetch(){
         const params = this.params;
         const collection = this.parsedArgs.getCollection();
+        const objectValues = this.parsedArgs.getObjectValues()
         let argData = {};
         for(const key in params){
             let current = params[key];
             if(current.iParse && typeof current.iParse === 'function'){
                 const { iParse } = current;
-                argData[current.name] = iParse(collection.get(current.name));
+                try {
+                    argData[current.name] = iParse({input: collection.get(current.name), ov: objectValues});
+                } catch (e) {
+                    throw e;
+                }
             } else {
                 argData[current.name] = collection.get(current.name);
             }
         }
+        return argData;
     }
 
     verify(){
