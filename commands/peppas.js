@@ -14,6 +14,7 @@ class Help extends Command {
                     alias: ["u"],
                     type: ["UserID", "Username", "Username#XXXX"],
                     spacedString: true,
+                    optional: true,
                     iParse: () => true,
                     iParseFail: () => false
                 },

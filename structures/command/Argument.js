@@ -1,7 +1,7 @@
 class Argument {
     constructor(client = null, opts = {
         "help": ["help","boolean"],
-        "h": "help"
+        "aliases": ['h']
     }) {
         this.opts = opts;
     }

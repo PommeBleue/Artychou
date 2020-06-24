@@ -2,6 +2,7 @@ class ParseOptions {
     constructor(params) {
         this.opts = {};
         this.params = params;
+        this.map = new Map();
 
         this.init();
     }
@@ -13,6 +14,7 @@ class ParseOptions {
             const parameter = this.params[i];
             const keys = Object.keys(parameter);
             if(parameter.spacedString) array.push(parameter.name);
+            this.map.set(keys[0],i);
             for(let k in keys){
                 const key = keys[k];
                 const value = parameter[key];
@@ -35,6 +37,11 @@ class ParseOptions {
 
     getOptions(){
         return this.opts;
+    }
+
+    getIndex(name){
+        if(typeof name !== 'string') return;
+        return this.map.get(name);
     }
 }
 
