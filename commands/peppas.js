@@ -9,7 +9,7 @@ class Peppas extends Command {
             category: "economy",
             usage: "peppas @[user] @![give]${user}",
             aliases: ["blé", "money", "bal", "<:peppas:713401565737910352>", "💵"],
-            defaultFetch: ({str, guild}) => getMemberByMixed(str, guild),
+            defaultFetch: ({str, mov}) => getMemberByMixed(str, mov.guild),
             params: [
                 {
                     name: "user",
@@ -32,7 +32,9 @@ class Peppas extends Command {
     }
 
     async run(message, args, lvl, data) {
-        await message.channel.send(`Tiens <@!${data.user.id}>, ${message.author.username} a décidé de te donner ${data.amount}`);
+        if(data.default) {
+            await message.channel.send(JSON.stringify(data.default.nickname));
+        }
     }
 }
 

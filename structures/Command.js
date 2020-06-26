@@ -8,10 +8,11 @@ class Command {
         guildOnly = false,
         aliases = [],
         params = [],
+        defaultFetch = (...args) => args,
         permLevel = "User"
     }) {
         this.client = client;
-        this.conf = { enabled, guildOnly, aliases, permLevel, params };
+        this.conf = { enabled, guildOnly, aliases, permLevel, params, defaultFetch};
         this.help = { name, description, category, usage };
     }
 }

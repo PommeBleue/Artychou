@@ -13,19 +13,27 @@ class Parse {
     init() {
         const params = this.params;
         if (params.length === 0) {
-            if (this.args.length === 0) return {}
+            if (this.args.length === 0) return {};
             return {".": this.args};
         }
         this.parseOptions = new ParseOptions(params);
         const opts = this.parseOptions.getOptions();
         const parsedObject = this.parse(opts);
         const parsedArgs = new ParsedArgument();
+        this.mov = parsedArgs.setObjectValues({
+            guild: this.message.channel.guild,
+            channel: this.message.channel,
+            member: this.message.member,
+            user: this.message.user
+        }).objectValues;
         console.log(parsedObject);
         let collection = parsedArgs.getCollection();
         const keys = Object.keys(parsedObject);
         let passed = false;
         // TODO : if there is no option passed, fetch default.
-        if (keys.length === 0) passed = true;
+        if (keys.length === 1 && keys[0] === "_") {
+            return {default: this};
+        }
         if (!passed) {
             for (let k in keys) {
                 const key = keys[k];
@@ -43,12 +51,6 @@ class Parse {
             }
         }
         parsedArgs.setCollection(collection);
-        parsedArgs.setObjectValues({
-            guild: this.message.channel.guild,
-            channel: this.message.channel,
-            member: this.message.member,
-            user: this.message.user
-        });
         this.parsedArgs = parsedArgs;
         return this;
     }
@@ -74,20 +76,13 @@ class Parse {
         return argData;
     }
 
-    fetchDefault() {
-        const params = this.params;
-        const collection = new Collection();
-        const objectValues = this.parsedArgs.getObjectValues();
-        let argDefaultData = {};
-        for (const key in params) {
-            let current = params[key];
-            const {iParseDefault} = current;
-            try {
-                argDefaultData[current.name] = iParseDefault({str: this.args.join(' '), ov: objectValues});
-            } catch (e) {
-                throw e;
-            }
-        }
+    defaultFetch(defaultFetch) {
+        const argDefaultData = {};
+        const objectValues = this.mov;
+        console.log(this.mov.guild);
+        argDefaultData["default"] = defaultFetch({str: this.args.join(''), mov: objectValues});
+        console.log(argDefaultData);
+        return argDefaultData;
     }
 
     verify() {

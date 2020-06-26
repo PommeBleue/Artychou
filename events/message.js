@@ -62,6 +62,16 @@ module.exports = class {
 
         console.log('args', args);
         const parse = new Parse(args, cmd.conf.params, message).init();
+
+        if(parse.default) {
+            const argsData = parse.default.defaultFetch(cmd.conf.defaultFetch);
+            try {
+                cmd.run(message, args, level, argsData);
+            } catch (e) {
+
+            }
+        }
+
         if(parse.verify === undefined || parse["."]) {
             try {
                 return cmd.run(message, args, level, {});

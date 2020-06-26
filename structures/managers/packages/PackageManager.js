@@ -50,7 +50,8 @@ class InternalPackages {
                 this.currentDirectory.push(element);
                 dir = this.currentDirectory.join(path.sep)
                 this.directories.push(dir);
-                this.packages[element] = require(`../../../modules/${dir}`);
+                let obj = require(`../../../modules/${dir}`);
+                this.packages[element] = new obj(this.client);
             }
         }
     }
@@ -73,8 +74,7 @@ class InternalPackages {
             dir = this.currentDirectory.join(path.sep);
             this.directories.push(dir);
             let obj = require(`../../../modules/${dir}`);
-            let obj2 = new obj();
-            this.packages[element] = obj2;
+            this.packages[element] = new obj(this.client);
         }
     }
 }
