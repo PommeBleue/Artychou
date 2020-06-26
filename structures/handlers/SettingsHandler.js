@@ -10,13 +10,12 @@ module.exports = class SettingsHandler {
     }
 
 
-    async init(){
-        this.table = await this.client.dbService.getTableAsync(this.type);
-        const defaultsData = await this.manager.getDefaults();
+    init(){
+        //this.table = await this.client.dbService.getTableAsync(this.type);
+        const defaultsData = this.manager.getDefaults();
+        console.log(defaultsData);
         const defaults = defaultsData.getData();
         this.settings.set("defaults", defaults);
-        const map = new Map();
-        map.f
         return this;
     }
 

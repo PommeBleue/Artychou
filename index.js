@@ -29,13 +29,13 @@ class Artychou extends Client {
 
         this.config = require("./config");
 
-        this.settingsHandler = new SettingsHandler(this);
         this.handler = new Handler(this);
+        this.settingsHandler = new SettingsHandler(this);
     }
 
     async init() {
-        await this.settingsHandler.init();
-        await this.handler.init();
+        this.handler = await this.handler.init();
+        this.settingsHandler = await this.settingsHandler.init();
         return this;
     }
 }
@@ -47,9 +47,11 @@ const client = new Artychou({
             type: 0
         }
     }
-}).init().then().catch(e => this.logger.error(e));
+});
 
+client.login(client.config.token);
 
-client.on('ready', () => {
-    client.logger.log(`${client.user.username} is ready, bitch.`, "ready");
+client.on('ready', async () => {
+    await client.init();
+    client.logger.log('Artychou is ready, bitch.', "ready");
 });

@@ -16,7 +16,6 @@ class InternalPackages {
 
     init() {
         this.getPackagesInStructures();
-        console.log(this.directories);
         return this;
     }
 

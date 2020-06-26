@@ -45,7 +45,9 @@ module.exports = class ArtychouHandler {
             this.client.levelCache[thisLevel.name] = thisLevel.level;
         }
 
-        await this.client.login(this.client.config.token);
+        //await this.client.login(this.client.config.token);
+
+        return this;
 
     }
 
@@ -57,7 +59,7 @@ module.exports = class ArtychouHandler {
             if(props.init) {
                 props.init(this.client);
             }
-            this.commands.set(props.name, props);
+            this.commands.set(props.help.name, props);
             for(let i = 0; i < props.conf.aliases.length; i++) {
                 this.aliases.set(props.conf.aliases[i], props);
             }

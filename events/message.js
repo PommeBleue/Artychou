@@ -1,3 +1,5 @@
+const Parse = require('../structures/parse/Parse');
+
 module.exports = class {
     constructor(client) {
         this.client = client;
@@ -58,15 +60,33 @@ module.exports = class {
             }
         }
 
-        try {
+        console.log('args', args);
+        const parse = new Parse(args, cmd.conf.params, message).init();
+        if(parse.verify === undefined || parse["."]) {
+            try {
+                return cmd.run(message, args, level, {});
+            } catch (e) {
+                throw e;
+            }
+        }
+
+        const verify = parse.verify();
+        if(verify) {
+            const argData = parse.fetch();
+            if(argData) return cmd.run(message, args, level, argData);
+            try{
+                const argDefaultData = parse.fetchDefault();
+            } catch (e) {
+
+            }
+        }
+
+        throw new Error();
+
+        /*try {
             cmd.run(message, args, level);
         } catch (e) {
 
-        }
+        }*/
     }
-
-    _verify(message) {
-
-    }
-
 };

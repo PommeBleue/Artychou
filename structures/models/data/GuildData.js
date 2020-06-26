@@ -6,7 +6,7 @@ class GuildData {
     }
 
     getData(){
-        return this.data();
+        return this.data;
     }
 
     setData(data){

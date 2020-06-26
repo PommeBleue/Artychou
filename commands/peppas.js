@@ -1,6 +1,7 @@
 const Command = require("../structures/Command");
+const {getMemberByMixed} = require("../utils/SearchUtils");
 
-class Help extends Command {
+class Peppas extends Command {
     constructor(client) {
         super(client, {
             name: "peppas",
@@ -8,6 +9,7 @@ class Help extends Command {
             category: "economy",
             usage: "peppas @[user] @![give]${user}",
             aliases: ["blé", "money", "bal", "<:peppas:713401565737910352>", "💵"],
+            defaultFetch: ({str, guild}) => getMemberByMixed(str, guild),
             params: [
                 {
                     name: "user",
@@ -15,7 +17,7 @@ class Help extends Command {
                     type: ["UserID", "Username", "Username#XXXX"],
                     spacedString: true,
                     optional: true,
-                    iParse: () => true,
+                    iParse: ({input, ov}) => getMemberByMixed(input, ov.guild),
                     iParseFail: () => false
                 },
                 {
@@ -29,9 +31,9 @@ class Help extends Command {
         });
     }
 
-    async run(message, args, lvl) {
-
+    async run(message, args, lvl, data) {
+        await message.channel.send(`Tiens <@!${data.user.id}>, ${message.author.username} a décidé de te donner ${data.amount}`);
     }
 }
 
-module.exports = Help;
+module.exports = Peppas;
