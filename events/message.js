@@ -25,7 +25,10 @@ module.exports = class {
 
         if(message.content.indexOf(message.settings.prefix) !== 0) {
 
-            await this.client.Ilisteners.tml.doAsync(message);
+            const iListeners = this.client.Ilisteners;
+
+            await iListeners.tml.doAsync(message);
+            await iListeners.awl.doAsync(message);
 
             const prefixMention = new RegExp(`^<@!?${this.client.user.id}> ?$`);
             if (message.content.match(prefixMention)) {
@@ -84,19 +87,8 @@ module.exports = class {
         if(verify) {
             const argData = parse.fetch();
             if(argData) return cmd.run(message, args, level, argData);
-            try{
-                const argDefaultData = parse.fetchDefault();
-            } catch (e) {
-
-            }
         }
 
         throw new Error();
-
-        /*try {
-            cmd.run(message, args, level);
-        } catch (e) {
-
-        }*/
     }
 };

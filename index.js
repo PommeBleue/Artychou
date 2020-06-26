@@ -22,7 +22,8 @@ class Artychou extends Client {
         this.usermanager = new UserManager(this).init();
 
         this.Ilisteners = {
-            tml: this.internal.get("ThreeMListener")
+            tml: this.internal.get("ThreeMListener"),
+            awl: this.internal.get("AnotherWordListener")
         };
 
         this.func = require("./utils/UtilFunctions");
