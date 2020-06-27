@@ -1,3 +1,14 @@
 {
-  "prefix": "tip"
+  "prefix": "tip",
+  "standard_error_title" : "❌ Il y a eu comme une erreur mon chou.",
+  "standard_footer" : "Artychou 1.0.0",
+  "standard_transaction_message" : "Vous avez donné **[amount]** peppas à [user]. QOSJFQSVFUFVQ.",
+  "peppas_title" : "<:peppas:713401565737910352> Peppas",
+  "colors": {
+    "error_color": "#ed1a1a",
+    "success_color": "#24c050"
+  },
+  "emotes" : {
+    "peppas" : "<:peppas:713401565737910352>"
+  }
 }

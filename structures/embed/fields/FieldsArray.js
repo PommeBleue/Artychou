@@ -6,12 +6,12 @@ class FieldsArray {
     }
 
     add(field){
-        if(field instanceof Field) return;
+        if(!(field instanceof Field)) return;
         if(field.name && field.value) {
             this.array.push(field);
         } else {
-            throw new Error();
             return `Field object must have name and value defined.`
+            throw new Error();
         }
     }
 

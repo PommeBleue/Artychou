@@ -19,7 +19,7 @@ class Artychou extends Client {
 
         this.dbService = new DataBaseService(this).init();
 
-        this.usermanager = new UserManager(this).init();
+        this.usermanager = new UserManager(this);
 
         this.Ilisteners = {
             tml: this.internal.get("ThreeMListener"),
@@ -35,6 +35,7 @@ class Artychou extends Client {
     }
 
     async init() {
+        await this.usermanager.init();
         this.handler = await this.handler.init();
         this.settingsHandler = await this.settingsHandler.init();
         return this;
@@ -44,13 +45,13 @@ class Artychou extends Client {
 const client = new Artychou({
     presence: {
         activity: {
-            name: "fracasser Yuuki",
-            type: 0
+            name: "Sou dessiner ❤️",
+            type: 3
         }
     }
 });
 
-client.login(client.config.token);
+(async () => await client.login(client.config.token))();
 
 client.on('ready', async () => {
     await client.init();

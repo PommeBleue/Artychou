@@ -91,4 +91,19 @@ module.exports.awaitReplyAsync = async (message, question, limit = 6000) => {
     }
 };
 
+module.exports.parseInt = (number) => {
+    const supportedFormat = ["k","m"];
+    const str = typeof number !== 'string' ? String(number) : number;
+    let multiplier = null;
+    if (supportedFormat.some(e => {
+        multiplier = e;
+        return e === str[str.length -1].toLowerCase();
+    })) {
+        const newStr = str.slice(0, str.length -1);
+        const newNumber = Number(newStr);
+        const result = newNumber * (supportedFormat.indexOf(multiplier) === 0 ? 1000 : 1000000);
+        return result;
+    }
+};
+
 

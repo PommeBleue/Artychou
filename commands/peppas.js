@@ -1,4 +1,5 @@
 const Command = require("../structures/Command");
+const Transaction = require('.')
 const {getMemberByMixed} = require("../utils/SearchUtils");
 
 class Peppas extends Command {
@@ -7,7 +8,7 @@ class Peppas extends Command {
             name: "peppas",
             description: "Vous aide un peu.",
             category: "economy",
-            usage: "peppas @[user] @![give]${user}",
+            usage: "peppas @[user] @[give]${user}",
             aliases: ["blé", "money", "bal", "<:peppas:713401565737910352>", "💵"],
             defaultFetch: ({str, mov}) => getMemberByMixed(str, mov.guild),
             params: [
@@ -23,7 +24,9 @@ class Peppas extends Command {
                 {
                     name: "amount",
                     alias: ["g"],
-                    type: ["int"],
+                    type: ["int", "toParseInt"],
+                    iParse : ({input, ov}) => this.client.func.parseInt(input),
+                    regexType: new RegExp(/^[^\.\°][0-9]+(k|K|m|M)?$/, 'gm'),
                     requires: [0],
                     optional: true
                 }
@@ -32,9 +35,27 @@ class Peppas extends Command {
     }
 
     async run(message, args, lvl, data) {
+
+
         if(data.default) {
-            await message.channel.send(JSON.stringify(data.default.nickname));
+
         }
+
+        if(data) {
+            const sender = message.user.id;
+            const receiver = data.user.user.id;
+            const amount = data.amount;
+
+            const transfer = new Transaction(sender, receiver);
+            const response = await transfer.init(amount);
+
+            if(response && typeof response === 'object') {
+
+            }
+        }
+
+
+
     }
 }
 

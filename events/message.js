@@ -15,8 +15,10 @@ module.exports = class {
         const settings = this.client.config.defaultSettings;
 
         //We are linking some stuff to the message itself so it's easy to access in the command class.
+        message.logger = this.client.logger;
         message.settings = this.client.settingsHandler.getSettings(message.guild);
         message.users = this.client.usermanager.users;
+        message.func = this.client.func;
         let prefix = message.settings.prefix;
 
         if(message.guild && !message.channel.permissionsFor(message.guild.me).missing("SEND_MESSAGES")) return;
@@ -63,13 +65,12 @@ module.exports = class {
             }
         }
 
-        console.log('args', args);
         const parse = new Parse(args, cmd.conf.params, message).init();
 
         if(parse.default) {
             const argsData = parse.default.defaultFetch(cmd.conf.defaultFetch);
             try {
-                cmd.run(message, args, level, argsData);
+                return cmd.run(message, args, level, argsData);
             } catch (e) {
 
             }
@@ -86,9 +87,15 @@ module.exports = class {
         const verify = parse.verify();
         if(verify) {
             const argData = parse.fetch();
-            if(argData) return cmd.run(message, args, level, argData);
+            if(argData) {
+                try {
+                    return cmd.run(message, args, level, argData);
+                } catch (e) {
+                    throw e;
+                }
+            }
         }
 
-        throw new Error();
+
     }
 };

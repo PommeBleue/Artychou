@@ -1,4 +1,5 @@
 const User = require("../models/user/User");
+const {Collection} = require('discord.js');
 
 class UserManager {
     constructor(client) {
@@ -8,12 +9,13 @@ class UserManager {
         this.client = client;
         this.table = null;
 
-        this.users = new Map();
+        this.users = new Collection();
     }
 
     async init() {
         this.table = await this.client.dbService.getTableAsync(this.type);
         await this.loadUsersAsync();
+        this.registerUsersFromCache();
         return this;
     }
 
@@ -76,14 +78,30 @@ class UserManager {
         return false;
     }
 
-    exists(id) {
-        for(let key in this.users.keys()) {
-            if(id === key) return true;
-            return false;
-        }
-        return false;
+    registerUsersFromCache(){
+        const cache = this.client.users.cache;
+        cache.forEach((user, id) =>  {
+            const u = new User(user.username, id);
+            if (!this.exists(id)) {
+                if(!user.bot) {
+                    (async () => {
+                        try {
+                            await this.AddUserAsync(u);
+                        } catch (e) {
+                            this.client.logger.error(`Failed to add [${id}] to database.`);
+                        }
+                    })();
+                    this.AddUserLocal(u);
+                } else {
+                    this.client.logger.warn('Cannot add bot User to database.');
+                }
+            }
+        });
     }
 
-};
+    exists(id) {
+        return this.users.has(id);
+    }
+}
 
 module.exports = UserManager;

@@ -34,6 +34,10 @@ class ParseOptions {
         return this.opts;
     }
 
+    getUsageEmbed() {
+
+    }
+
     getIndex(name) {
         if (typeof name !== 'string') return;
         return this.map.get(name);
