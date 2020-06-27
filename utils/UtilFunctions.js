@@ -41,7 +41,7 @@ module.exports.permlevel = (message, client) => {
  * @description Formats numbers.
  */
 module.exports.numberFormat = (numberAnyType) => {
-    numberAnyType.toString().replace(/(.)(?=(\d{3})+$)/g, '$1,');
+    return String(numberAnyType).replace(/(.)(?=(\d{3})+$)/g, '$1,');
 };
 
 

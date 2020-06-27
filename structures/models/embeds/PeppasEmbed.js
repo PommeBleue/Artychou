@@ -1,11 +1,11 @@
 const EmbedBuilder = require('../../embed/EmbedBuilder');
 
-class TransactionEmbed extends EmbedBuilder {
-    constructor({amount, receiver}, settings) {
+class PeppasEmbed extends EmbedBuilder {
+    constructor({user, amount}, settings) {
         super();
-        this.color = (settings["colors"])["success_color"];
+        this.color = (settings["colors"])["default_color"];
         this.title = settings["peppas_title"];
-        this.message = settings["standard_transaction_message"].replace("[amount]", amount).replace("[user]", receiver);
+        this.message = settings["peppas_standard_message"].replace("[user]", user).replace("[amount]", amount);
     }
 
     build() {
@@ -20,4 +20,4 @@ class TransactionEmbed extends EmbedBuilder {
     }
 }
 
-module.exports = TransactionEmbed;
+module.exports = PeppasEmbed;

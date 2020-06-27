@@ -26,7 +26,7 @@ class Parse {
             member: this.message.member,
             user: this.message.user
         }).objectValues;
-        console.log(parsedObject);
+        //console.log(parsedObject);
         let collection = parsedArgs.getCollection();
         const keys = Object.keys(parsedObject);
         let passed = false;
@@ -92,14 +92,13 @@ class Parse {
         const channel = this.message.channel;
         const params = this.params;
         const collection = this.parsedArgs.getCollection();
-        console.log(this.parsedArgs);
+        //console.log(this.parsedArgs);
         for (const key in params) {
             let current = params[key];
-            if (current.regexType) {
-                const regex = current.regexType;
+            if (current.regexType && typeof current.regexType === 'function') {
                 const value = collection.get(current.name);
                 const testValue = typeof value !== 'string' ? String(value) : value;
-                if (!(regex.test(testValue))) {
+                if (!(current.regexType(testValue))) {
                     const error = new ErrorEmbed(`Not a valid type for **${current.name}**. Consider reading usage for this command, Bitch.`, this.message.settings).build();
                     (async () => await channel.send({embed: error}))();
                     return this.message.logger.error(`${current.name} does not match the type **${current.type.join(' or ')}**`);

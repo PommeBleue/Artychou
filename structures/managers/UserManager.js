@@ -32,11 +32,11 @@ class UserManager {
         let table = this.table;
         for(let i=0; i < table.length; i++) {
             let u = table[i];
-            let user = new User(u.id, u.username ? u.username : "undefined")
-                .setBalance(u.bal ? u.bal : -1)
-                .setDaily(u.daily ? u.daily : -1)
-                .setCommandCount(u.ccount ? u.daily : -1)
-                .setExperience(u.experience ? u.experience : -1)
+            let user = new User(u.id, u.username)
+                .setBalance(u.bal >= 0 ? u.bal : 0)
+                .setDaily(u.daily>=0 ? u.daily : 0)
+                .setCommandCount(u.ccount >= 0 ? u.daily : 0)
+                .setExperience(u.experience >= 0 ? u.experience : 0)
                 .setBotOwner(u.botOwner ? u.botOwner : false);
             this.users.set(user.id, user);
         }
@@ -81,7 +81,7 @@ class UserManager {
     registerUsersFromCache(){
         const cache = this.client.users.cache;
         cache.forEach((user, id) =>  {
-            const u = new User(user.username, id);
+            const u = new User(id, user.username);
             if (!this.exists(id)) {
                 if(!user.bot) {
                     (async () => {

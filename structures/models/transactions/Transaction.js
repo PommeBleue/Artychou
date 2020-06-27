@@ -2,9 +2,10 @@ const ErrorEmbed = require('../embeds/ErrorEmebed');
 
 class Transaction {
     constructor({sender, receiver}, message) {
+        this.message = message;
         this.sender = sender;
         this.receiver = receiver;
-        this.userManager = message.usermanager;
+        this.userManager = message.users;
     }
 
     async init(amount) {
@@ -14,15 +15,17 @@ class Transaction {
     }
 
     async transfer(sender, receiver, amount) {
+        const message = this.message
         const channel = message.channel;
+        const settings = message.settings
         const canTransfer = /\d+/.test(sender) && /\d+/.test(receiver);
         if(receiver === sender) {
-            const embed = new ErrorEmbed(`Hein ?? Qui essaye de se payer lui-même stp ??`, message.settings);
+            const embed = new ErrorEmbed(`Hein ?? Qui essaye de se payer lui-même stp ??`, settings).build();
             await channel.send({embed});
             throw new Error('UserNull exception.');
         }
         if(amount <= 0) {
-            const embed = new ErrorEmbed(`Amount cannot be less than **0**.`, message.settings);
+            const embed = new ErrorEmbed(`Amount cannot be less than **0**.`, settings).build();
             await channel.send({embed});
             throw new Error('Amount less than zero exception.');
         }
@@ -30,15 +33,16 @@ class Transaction {
             const userSender = this.userManager.getUserById(sender);
             const userReceiver = this.userManager.getUserById(receiver);
 
-            if(userSender.bal < amount) {
-                const embed = new ErrorEmbed(`Il vous manque ${message.func.numberFormat((Math.abs(amount - userSender.bal)))} peppas pour effectuer cette transaction.`, message.settings);
+            if(userSender.getBalance() < amount) {
+                const embed = new ErrorEmbed(`Il vous manque ${message.func.numberFormat((Math.abs(Number(amount) - Number(userSender.getBalance()))))} peppas pour effectuer cette transaction.`, settings).build();
                 await channel.send({embed});
                 throw new Error('Amount less than zero exception.');
             }
 
-            const balSender = userSender.getBalance() - Number(amount);
-            const balReceiver = userReceiver.getBalance() + Number(amount)
-
+            const balSender = Number(userSender.getBalance()) - Number(amount);
+            const balReceiver = Number(userReceiver.getBalance()) + Number(amount);
+            console.log(typeof balSender, balSender);
+            console.log(typeof balReceiver, balReceiver);
             userSender.setBalance(balSender);
             userReceiver.setBalance(balReceiver);
 
@@ -49,7 +53,7 @@ class Transaction {
 
             return {amount: message.func.numberFormat(amount), receiver: userReceiver, sender: userSender}
         }
-        const embed = new ErrorEmbed(`The IDs that were provided are not valid IDs.`, message.settings);
+        const embed = new ErrorEmbed(`The IDs that were provided are not valid IDs.`, settings).build();
         await channel.send({embed});
         throw new Error('No valid ID provided for sender and receiver');
     }

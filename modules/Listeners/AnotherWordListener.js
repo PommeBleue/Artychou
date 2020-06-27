@@ -7,7 +7,6 @@ class AnotherWordListener {
         const str = message.content;
         const channel = message.channel;
         if(/[(x00-xF7)|(\:\()]+\./gm.test(str)) {
-            console.log('true');
             const content = str.slice(0, str.length - 1).split(/\s/);
             const logical = content.every(e => e === content[0]);
             let first = null;

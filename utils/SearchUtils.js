@@ -50,10 +50,6 @@ const getMemberByName = (name, guild) => {
     const { members } = guild;
     let strongest = null;
 
-    if (str2Lower == 'vaeb') {
-        const selfMember = members.get(vaebId);
-        if (selfMember) return selfMember;
-    }
 
     const keys = Array.from(members.cache.keys());
 

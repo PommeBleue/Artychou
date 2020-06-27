@@ -17,7 +17,7 @@ module.exports = class {
         //We are linking some stuff to the message itself so it's easy to access in the command class.
         message.logger = this.client.logger;
         message.settings = this.client.settingsHandler.getSettings(message.guild);
-        message.users = this.client.usermanager.users;
+        message.users = this.client.usermanager;
         message.func = this.client.func;
         let prefix = message.settings.prefix;
 

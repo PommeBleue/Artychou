@@ -2,11 +2,16 @@
   "prefix": "tip",
   "standard_error_title" : "❌ Il y a eu comme une erreur mon chou.",
   "standard_footer" : "Artychou 1.0.0",
-  "standard_transaction_message" : "Vous avez donné **[amount]** peppas à [user]. QOSJFQSVFUFVQ.",
+  "standard_transaction_message" : "Vous avez donné **[amount]** peppas à [user]. <4.",
   "peppas_title" : "<:peppas:713401565737910352> Peppas",
+  "peppas_standard_message" : "[user] a **[amount]** peppas. BATMAN!",
+  "error_messages": {
+    "option_received_not_valid": "Il semblerait que vous ayez saisi une donnée erronée. Pouvez-vous vous pendre ? Ou à la limite, si ingurgiter de telles substances fait partie de vos fantasmes, boire un verre d'eau de javel ?"
+  },
   "colors": {
     "error_color": "#ed1a1a",
-    "success_color": "#24c050"
+    "success_color": "#24c050",
+    "default_color": " #eea3f7"
   },
   "emotes" : {
     "peppas" : "<:peppas:713401565737910352>"
