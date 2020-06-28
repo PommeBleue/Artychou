@@ -23,6 +23,8 @@
     "readline-sync": "^1.4.9",
     "rethinkdb": "^2.4.2",
     "rethinkdbdash": "^2.3.31",
+    "solenolyrics": "^5.0.0",
+    "string-similarity": "^4.0.1",
     "yargs-parser": "^18.1.3"
   }
 }

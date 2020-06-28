@@ -1,11 +1,14 @@
 if (Number(process.version.slice(1).split(".")[0]) < 12) throw new Error("Node 12.0.0 or higher is required. Update Node on your system.");
 
-const { Client, Collection } = require("discord.js");
+const { Client } = require("discord.js");
 const InternalPackages = require("./structures/managers/packages/PackageManager");
 const Handler = require('./structures/handlers/Handler');
 const SettingsHandler = require("./structures/handlers/SettingsHandler")
 const DataBaseService = require("./database/DataBaseService");
 const UserManager = require("./structures/managers/UserManager");
+const SongsGuildManager = require("./structures/managers/SongsGuildManager");
+
+
 
 class Artychou extends Client {
     constructor(options) {
@@ -15,16 +18,18 @@ class Artychou extends Client {
 
         //this.external = new ExternalPackages();
 
-        this.internal = new InternalPackages(this).init();
+        this.internal = new InternalPackages(this);
+            this.internal.init();
 
         this.dbService = new DataBaseService(this).init();
 
         this.usermanager = new UserManager(this);
+        this.songGuildManger = new SongsGuildManager(this);
 
-        this.Ilisteners = {
+        /*this.Ilisteners = {
             tml: this.internal.get("ThreeMListener"),
             awl: this.internal.get("AnotherWordListener")
-        };
+        };*/
 
         this.func = require("./utils/UtilFunctions");
 
@@ -36,6 +41,7 @@ class Artychou extends Client {
 
     async init() {
         await this.usermanager.init();
+        this.songGuildManger.init();
         this.handler = await this.handler.init();
         this.settingsHandler = await this.settingsHandler.init();
         return this;

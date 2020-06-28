@@ -4,7 +4,7 @@ class InternalPackages {
     constructor(client){
         this.client = client;
         this.structures = ["structures", {
-            Listeners: { argument: "ThreeMListener", word: "AnotherWordListener" }
+            Listeners: { argument: "ThreeMListener", word: "AnotherWordListener", Lyrics: {finder: "LyricsFinder"} }
         }];
 
         this.packages = {};
@@ -16,6 +16,7 @@ class InternalPackages {
 
     init() {
         this.getPackagesInStructures();
+        this.client.packages = this.packages;
         return this;
     }
 

@@ -19,6 +19,7 @@ module.exports = class {
         message.settings = this.client.settingsHandler.getSettings(message.guild);
         message.users = this.client.usermanager;
         message.func = this.client.func;
+        message.songs = this.client.songs;
         let prefix = message.settings.prefix;
 
         if(message.guild && !message.channel.permissionsFor(message.guild.me).missing("SEND_MESSAGES")) return;
@@ -27,10 +28,10 @@ module.exports = class {
 
         if(message.content.indexOf(message.settings.prefix) !== 0) {
 
-            const iListeners = this.client.Ilisteners;
+            const packages = this.client.packages;
 
-            await iListeners.tml.doAsync(message);
-            await iListeners.awl.doAsync(message);
+            await packages["ThreeMListener"].doAsync(message);
+            await packages["AnotherWordListener"].doAsync(message);
 
             const prefixMention = new RegExp(`^<@!?${this.client.user.id}> ?$`);
             if (message.content.match(prefixMention)) {

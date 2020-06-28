@@ -1,3 +1,5 @@
+const solenolyrics = require('solenolyrics');
+
 /**
  *
  * @param time
