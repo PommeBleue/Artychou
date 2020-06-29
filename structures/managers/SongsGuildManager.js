@@ -7,23 +7,27 @@ class SongsGuildManager {
         this.userSongs = new Enmap({name: "userSongs", cloneLevel: "deep", fetchAll: false, autoFetch: true});
     }
 
-    init(){
+    async init(){
         const map = this.userSongs;
         this.client.songs = {};
         const guilds = this.client.guilds.cache;
-        guilds.forEach((guild, id) => {
-            if(this.userSongs.has(guild.id)) {
-                const object = map.get(guild.id);
+        for(let x in guilds.array()){
+          const guild = guilds.array()[x];
+          const id = guild.id;
+            if(this.userSongs.has(id)) {
+                const object = map.get(id);
                 const manager = new SongsArrayManger(this.client, guild);
                 for(const key in object) {
                     const value = object[key];
-                    manager.setSongsInArray(key, value);
+                    await manager.setSongsInArray(key, value);
                 }
                 this.client.songs[`songsarray_${guild.id}`] = manager;
+                continue;
             }
-            this.client.songs[`songsarray_${guild.id}`] = {};
+            this.client.songs[`songsarray_${guild.id}`] = new SongsArrayManger(this.client, guild);
             this.userSongs.set(guild.id, {});
-        });
+        }
+        return this;
     }
 
     getUserSongsObject(guild){
@@ -33,6 +37,22 @@ class SongsGuildManager {
             result[key] = object[key] ?  object[key] : '';
         });
         return result;
+    }
+
+    getUserSongsArray(guild, id){
+        return this.userSongs.get(guild.id)[id] ? this.userSongs.get(guild.id)[id] : [];
+    }
+
+    removeSongFromArray(guild, id, name){
+        const defaults = {};
+        const object = guild ? (this.userSongs.get(guild.id) ? this.userSongs.get(guild.id) : defaults) : defaults;
+        const array = object[id] || undefined;
+        if(array) {
+           const newArray = array.filter(x => x !== name);
+           this.setSongsArray(newArray, guild, id);
+           return this;
+        }
+        return false;
     }
 
     setSongsArray(array, guild, userId) {

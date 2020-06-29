@@ -24,7 +24,7 @@ class Parse {
             guild: this.message.channel.guild,
             channel: this.message.channel,
             member: this.message.member,
-            user: this.message.user
+            user: this.message.author
         }).objectValues;
         //console.log(parsedObject);
         let collection = parsedArgs.getCollection();

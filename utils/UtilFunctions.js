@@ -83,10 +83,11 @@ module.exports.cleanTextAsync = async (text) => {
  msg.reply(`Oh, I really love ${response} too!`);
  */
 module.exports.awaitReplyAsync = async (message, question, limit = 6000) => {
-    const filter = m => m.author.id === message.author.id;
-    await message.channel.send(question);
+    const filter = m => m.author.id === message.author.id && !(m.author.bot);
+    const msg = await message.channel.send(question);
     try {
         const collected = await message.channel.awaitMessages(filter, { max: 1, time: limit, errors: ["time"] });
+        if(!collected) if(msg.deletable) await message.delete();
         return collected.first().content;
     } catch (e) {
         return false;
@@ -103,8 +104,7 @@ module.exports.parseInt = (number) => {
     })) {
         const newStr = str.slice(0, str.length -1);
         const newNumber = Number(newStr);
-        const result = newNumber * (supportedFormat.indexOf(multiplier) === 0 ? 1000 : 1000000);
-        return result;
+        return newNumber * (supportedFormat.indexOf(multiplier) === 0 ? 1000 : 1000000);
     }
 };
 

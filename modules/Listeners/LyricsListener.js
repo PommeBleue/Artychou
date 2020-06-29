@@ -1,16 +1,16 @@
 const stringSimilarity = require('string-similarity');
 
 class LyricsListener {
-    constructor(message) {
-        this.message = message;
+    constructor(client) {
+        this.client = client;
     }
 
     init() {
         return this;
     }
 
-    async doAsync(){
-        const message = this.message;
+    async doAsync(message){
+        const str = message.content;
         const guild = message.guild;
         const songs = message.songs;
         const currentSongs = songs[`songsarray_${guild.id}`];

@@ -11,7 +11,6 @@ module.exports = class {
 
         //If the user is a bot, return;
         if(message.author.bot) return;
-
         const settings = this.client.config.defaultSettings;
 
         //We are linking some stuff to the message itself so it's easy to access in the command class.
@@ -32,6 +31,7 @@ module.exports = class {
 
             await packages["ThreeMListener"].doAsync(message);
             await packages["AnotherWordListener"].doAsync(message);
+            await packages["LyricsListener"].doAsync(message);
 
             const prefixMention = new RegExp(`^<@!?${this.client.user.id}> ?$`);
             if (message.content.match(prefixMention)) {

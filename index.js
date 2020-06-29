@@ -41,7 +41,7 @@ class Artychou extends Client {
 
     async init() {
         await this.usermanager.init();
-        this.songGuildManger.init();
+        await this.songGuildManger.init();
         this.handler = await this.handler.init();
         this.settingsHandler = await this.settingsHandler.init();
         return this;
@@ -51,8 +51,8 @@ class Artychou extends Client {
 const client = new Artychou({
     presence: {
         activity: {
-            name: "Sou dessiner ❤️",
-            type: 3
+            name: "modifier le passé.️",
+            type: 0
         }
     }
 });
