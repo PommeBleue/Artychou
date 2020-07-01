@@ -9,12 +9,16 @@ class ArtychouLyrics {
     }
 
     async query(name){
-        const api = this.api;
-        const url = `${api}${encodeURI(name)}`;
-        const id = await this.getId(url);
-        const song = await this.getSong(id);
-        const lyrics = await this.getLyricsFromHtml(song);
-        return new GeniusSong(song, lyrics);
+        try {
+            const api = this.api;
+            const url = `${api}${encodeURI(name)}`;
+            const id = await this.getId(url);
+            const song = await this.getSong(id);
+            const lyrics = await this.getLyricsFromHtml(song);
+            return new GeniusSong(song, lyrics);
+        } catch (e) {
+            return false;
+        }
     }
 
     async getId(url) {

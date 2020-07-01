@@ -81,7 +81,7 @@ class Parse {
         const argDefaultData = {};
         const objectValues = this.mov;
         argDefaultData["defaults"] = defaultFetch({str: this.args.join(' '), mov: objectValues});
-        if (!argDefaultData["defaults"]) {return 'Error'};
+        if (!argDefaultData["defaults"]) return 'Error';
         return argDefaultData;
     }
 

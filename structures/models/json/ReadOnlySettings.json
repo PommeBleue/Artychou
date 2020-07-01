@@ -33,5 +33,10 @@
     "type" : "object",
     "changeable": false,
     "description": "Emotes."
+  },
+  "8ball": {
+    "type" : "object",
+    "changeable": false,
+    "description": "Réponses aux questions de la 8ball."
   }
 }

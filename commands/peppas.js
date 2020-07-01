@@ -29,8 +29,9 @@ class Peppas extends Command {
                     name: "amount",
                     alias: ["g"],
                     type: ["int", "toParseInt"],
-                    iParse : ({input, ov}) => /\d+/.test(String(input)) ? Number(input) : this.client.func.parseInt(input),
-                    regexType: (str) => /^[^.°][0-9]*(k|K|m|M)?$/gm.test(str),
+                    iParse : ({input, ov}) => /^\d+$/.test(String(input)) ? Number(input) : this.client.func.parseInt(input),
+                    regexType: (str) => /^[^.°][0-9]*(k|m)?$/gm.test(str.toLowerCase()),
+                    strictMatch: true,
                     requires: [0],
                     optional: true
                 }

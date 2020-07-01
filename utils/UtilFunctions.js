@@ -96,6 +96,7 @@ module.exports.awaitReplyAsync = async (message, question, limit = 6000) => {
 
 module.exports.parseInt = (number) => {
     const supportedFormat = ["k","m"];
+    console.log(number);
     const str = typeof number !== 'string' ? String(number) : number;
     let multiplier = null;
     if (supportedFormat.some(e => {

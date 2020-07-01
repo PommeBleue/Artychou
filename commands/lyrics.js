@@ -39,10 +39,11 @@ class LyricsCommand extends Command {
         const author = message.author;
         const id = author.id;
         const songs = this.client.songs[`songsarray_${guild.id}`].getArray(id);
+        //const finder = message.packages["LyricsFinder"];
 
         if(data && data.defaults) {
-            console.log('error ?', data.default);
-            return;
+            const fetched = data.defaults;
+            const arg = fetched[0];
         }
 
         if (data && typeof data === 'object') {
@@ -61,10 +62,11 @@ class LyricsCommand extends Command {
                 }
                 const listener = this.client.packages["YesNoListener"];
                 const lyrics = response.getLyricsInArray();
-                if(lyrics === 'error') {
+                console.log(lyrics);
+                if(lyrics === 'error' || lyrics.length === 0) {
                     this.client.songs[`songsarray_${guild.id}`].pop(id);
                     return await this.notFound(msg, message);
-                };
+                }
                 if(lyrics.join('').length < 4096) {
                     if(msg.deletable) await msg.delete();
                     if(lyrics.join('').length > 2048) {
@@ -101,7 +103,6 @@ class LyricsCommand extends Command {
                     const title = String(response.getTitle());
                     const newArray = this.client.songGuildManger.getUserSongsArray(guild, id);
                     newArray.push(`${title}`);
-                    console.log(newArray);
                     this.client.songGuildManger.setSongsArray(newArray, guild, id);
                     return;
                 } else if(listened ===  'response_not_valid') {

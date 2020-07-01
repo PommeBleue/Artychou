@@ -28,12 +28,17 @@
   "emotes" : {
     "peppas" : "<:peppas:713401565737910352>"
   },
-  "lyrics" : {
-    "balavoine": {
-
-    },
-    "gregory_alan_isakov": {
-
-    }
+  "lyrics" : {},
+  "8ball" : {
+    "response1" : "Je crois que non, désolée pour toi (je ne le suis pas)",
+    "response2" : "Pour le moment, il vaut mieux que tu restes dans l’ignorance, mon enfant.",
+    "response3" : "Demande-moi plus tard, je me fais les ongles là, bouge.",
+    "response4" :  "J’en sais rien mais je dirais que non.",
+    "response5" : "Absolument pas.",
+    "response6" : "Certainement pas, t’es malade toi.",
+    "response7" : "Mais évidemment mon chou.",
+    "response8" :"Bien sûr, quelle question !",
+    "response9" :"Je suis certaine que oui, et je ne me trompe jamais !",
+    "response10" :"Ma boule me montre une réponse positive, cela te convient ? Ça fera 1500 Peppas."
   }
 }

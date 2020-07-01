@@ -7,7 +7,8 @@ class InternalPackages {
             Listeners: { argument: "ThreeMListener", word: "AnotherWordListener", lyricsListener: "LyricsListener" },
             Lyrics: {finder: "LyricsFinder"},
             ResponseListeners: {yn: "YesNoListener" },
-            Settings: {modifier: "SettingsModifier" }
+            Settings: {modifier: "SettingsModifier" },
+            Command: {huit: "EightBallResponses"}
         }];
 
         this.packages = {};
