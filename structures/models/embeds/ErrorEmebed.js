@@ -5,7 +5,7 @@ class ErrorEmebed extends EmbedBuilder {
         super();
         this.footer = settings["standard_footer"];
         this.color = (settings["colors"])["error_color"];
-        this.title = settings["standard_error_title"];
+        this.title = settings["titles"]["standard_error_title"];
         this.error = error;
     }
 

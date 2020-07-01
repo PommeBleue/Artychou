@@ -34,6 +34,7 @@ class SongsArrayManager {
         const client = this.client;
         const finder = client.packages["LyricsFinder"];
         const array = this.getArray(userId) ? this.getArray(userId) : [] ;
+        console.log(array);
         let song = {};
         try {
             song = await finder.getSong(name);
@@ -41,7 +42,7 @@ class SongsArrayManager {
             return 'error';
         }
         if(song) {
-            if(array.some(e => {
+            if(array.length && array.some(e => {
                 return e.getTitle() === song.getTitle();
             })) return false;
             array.push(song);
@@ -74,9 +75,10 @@ class SongsArrayManager {
     }
 
     pop(id){
-        const array = this.getArray(id).pop();
+        const array = this.getArray(id);
+        const deleted = array.pop();
         this.songs.set(id, array);
-        return false;
+        return deleted;
     }
 
     getCollection() {

@@ -45,7 +45,7 @@ module.exports = class {
 
         if(message.guild && !message.member) await this.client.users.fetch(message.author.id);
 
-        const level = null;
+        const level = message.func.permlevel(message, this.client);
 
         const cmd = this.client.handler.commands.get(command) || this.client.handler.aliases.get(command);
 
@@ -62,26 +62,26 @@ module.exports = class {
                     Your permission level is ${level} (${this.client.config.permLevels.find(l => l.level === level).name})
                     This command requires level ${this.client.levelCache[cmd.conf.permLevel]} (${cmd.conf.permLevel})`);
             } else {
-                return;
+                console.log('no perms');
             }
         }
 
         const parse = new Parse(args, cmd.conf.params, message).init();
 
-        if(parse.default) {
-            const argsData = parse.default.defaultFetch(cmd.conf.defaultFetch);
+        if(!parse) {
+            try {
+                return cmd.run(message, args, level, undefined);
+            } catch (e) {
+                throw e;
+            }
+        }
+
+        if(parse.defaults) {
+            const argsData = parse.defaults.defaultFetch(cmd.conf.defaultFetch);
             try {
                 return cmd.run(message, args, level, argsData);
             } catch (e) {
 
-            }
-        }
-
-        if(parse.verify === undefined || parse["."]) {
-            try {
-                return cmd.run(message, args, level, {});
-            } catch (e) {
-                throw e;
             }
         }
 

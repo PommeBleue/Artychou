@@ -39,23 +39,21 @@ class LyricsCommand extends Command {
         const author = message.author;
         const id = author.id;
         const songs = this.client.songs[`songsarray_${guild.id}`].getArray(id);
-        console.log('entered');
-        console.log(data);
 
-        if(data.default) {
-            console.log('error ?', data.default)
+        if(data && data.defaults) {
+            console.log('error ?', data.default);
             return;
         }
 
-        if (typeof data === 'object') {
+        if (data && typeof data === 'object') {
             if(data["set"]){
+                if(songs !== undefined && songs.length > 9) {
+                    const error = new ErrorEmbed('Vous avez atteint la limite de paroles pouvant être enregistrées.', message.settings).build();
+                    return await channel.send({embed: error});
+                }
                 const msg = await message.channel.send('Je vous prie de patienter pendant que je cherche les lyrics sur l\'Internet connecté.');
                 const response = await this.client.songs[`songsarray_${guild.id}`].setSongInArray(id, data["set"]);
-                if(typeof response === 'string' && response === 'error' ) {
-                    if(msg.deletable) await msg.delete();
-                    const error = new ErrorEmbed("Je n'ai pas trouvé de lyrics pour ta chanson. Elle doit puer la merde.", message.settings).build();
-                    return await message.channel.send({embed: error});
-                }
+                if(typeof response === 'string' && response === 'error' ) await this.notFound(msg, message);
                 if(!response) {
                     if(msg.deletable) await msg.delete();
                     const error = new ErrorEmbed("Tu as déjà cette musique dans ta liste" , message.settings).build();
@@ -63,11 +61,14 @@ class LyricsCommand extends Command {
                 }
                 const listener = this.client.packages["YesNoListener"];
                 const lyrics = response.getLyricsInArray();
-                console.log(lyrics);
+                if(lyrics === 'error') {
+                    this.client.songs[`songsarray_${guild.id}`].pop(id);
+                    return await this.notFound(msg, message);
+                };
                 if(lyrics.join('').length < 4096) {
                     if(msg.deletable) await msg.delete();
                     if(lyrics.join('').length > 2048) {
-                        const lyrics1 = lyrics.slice(0, 30);
+                        const lyrics1 = lyrics.slice(0, 50);
                         const lyrics2 = lyrics.slice(30, lyrics.length);
                         const embed = new LyricsEmbed(lyrics1, message.settings).build();
                         const embed2 = new LyricsEmbed(lyrics2, message.settings, "La suite mon chou.").build();
@@ -103,6 +104,9 @@ class LyricsCommand extends Command {
                     console.log(newArray);
                     this.client.songGuildManger.setSongsArray(newArray, guild, id);
                     return;
+                } else if(listened ===  'response_not_valid') {
+                    await message.channel.send(`Pas compris ta réponse :(`);
+                    this.client.songs[`songsarray_${guild.id}`].pop(id);
                 } else {
                     await message.channel.send(`Ça marche.`);
                     this.client.songs[`songsarray_${guild.id}`].pop(id);
@@ -144,6 +148,12 @@ class LyricsCommand extends Command {
 
         const embed = new SongsListEmbed(songs, message.settings).build();
         await channel.send({embed});
+    }
+
+    async notFound(msg, message){
+        if(msg.deletable) await msg.delete();
+        const error = new ErrorEmbed("Je n'ai pas trouvé de lyrics pour ta chanson. Elle doit puer la merde.", message.settings).build();
+        return await message.channel.send({embed: error});
     }
 }
 

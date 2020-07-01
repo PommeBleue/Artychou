@@ -5,7 +5,7 @@ class LyricsEmbed extends EmbedBuilder {
         super();
         this.footer = settings["standard_footer"];
         this.color = (settings["colors"])["default_color"];
-        this.title = title ? title : settings["standard_lyrics_title"];
+        this.title = title ? title : settings["titles"]["standard_lyrics_title"];
         this.lyrics = lyrics;
     }
 

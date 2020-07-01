@@ -1,37 +1,59 @@
 class Song {
-    constructor({lyrics, title, author}) {
+    constructor(song, lyrics) {
+        this.song = song;
         this.lyrics = lyrics;
-        this.title = title;
-        this.author = author;
     }
 
-    getAuthor(){
-        return this.author;
+    getTitle() {
+        return this.song["title"];
     }
 
-    getTitle(){
-        return this.title;
+    getLyrics() {
+        return this.lyrics;
     }
 
-    getLyricsInArray(){
-        const lyrics = this.lyrics;
-        return Array.isArray(lyrics) ? lyrics : lyrics.split(/\n/);
+    getAuthor() {
+        const artist = this.getPrimaryArtist();
+        return artist.name;
     }
 
-    setLyrics(lyrics){
-        this.lyrics = lyrics;
-        return this;
+    getPrimaryArtist() {
+        return this.song["primary_artist"];
     }
 
-    setTitle(title){
-        this.title = title;
-        return this;
+    getLyricsInArray() {
+        const lyrics = this.lyrics.split(/\n/);
+        return lyrics.filter(x => !(x[0] === "[" && x[x.length - 1] === "]"));
     }
 
-    setAuthor(author){
-        this.author = author;
-        return this;
+    getFullTitle() {
+        return this.song["full_title"];
     }
+
+    getId() {
+        return this.song["Id"];
+    }
+
+    getReleaseDate() {
+        return this.song["release_date"];
+    }
+
+    getReleaseDateForDisplay() {
+        return this.song["release_date_for_display"];
+    }
+
+    getImageUrl(){
+        return this.song["song_art_image_url"];
+    }
+
+    getUrl() {
+        return this.song["url"];
+    }
+
+    getAlbumObject() {
+        return this.song["album"];
+    }
+
 }
 
 module.exports = Song;

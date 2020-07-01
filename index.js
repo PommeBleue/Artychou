@@ -19,7 +19,6 @@ class Artychou extends Client {
         //this.external = new ExternalPackages();
 
         this.internal = new InternalPackages(this);
-            this.internal.init();
 
         this.dbService = new DataBaseService(this).init();
 
@@ -41,6 +40,7 @@ class Artychou extends Client {
 
     async init() {
         await this.usermanager.init();
+        this.internal.init();
         await this.songGuildManger.init();
         this.handler = await this.handler.init();
         this.settingsHandler = await this.settingsHandler.init();

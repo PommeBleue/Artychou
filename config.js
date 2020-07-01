@@ -4,9 +4,10 @@ config({
     path: __dirname + "/.env"
 });
 
-const ArtychouConfig =  {
+let ArtychouConfig;
+ArtychouConfig = {
 
-    "owner": "",
+    "owner": "479332968242872323",
 
     "admins": [],
 
@@ -14,7 +15,7 @@ const ArtychouConfig =  {
 
     "token": process.env.TOKEN,
 
-    "defaultSettings" : {
+    "defaultSettings": {
         "prefix": "tip",
         "modLogChannel": "mod",
         "modRole": "Mod",
@@ -26,12 +27,14 @@ const ArtychouConfig =  {
     },
 
     permLevels: [
-        { level: 0,
+        {
+            level: 0,
             name: "User",
             check: () => true
         },
 
-        { level: 2,
+        {
+            level: 2,
             name: "Mod",
             check: (message) => {
                 try {
@@ -43,7 +46,8 @@ const ArtychouConfig =  {
             }
         },
 
-        { level: 3,
+        {
+            level: 3,
             name: "Admin",
             check: (message) => {
                 try {
@@ -55,29 +59,40 @@ const ArtychouConfig =  {
             }
         },
 
-        { level: 4,
+        {
+            level: 4,
             name: "Server Owner",
             check: (message) => message.channel.type === "text" ? (message.guild.owner.user.id === message.author.id) : false
         },
 
-        { level: 8,
+        {
+            level: 8,
             name: "Bot Support",
-            check: (message) => config.hysteria.includes(message.author.id)
+            check: (message) => ArtychouConfig.hysteria.includes(message.author.id)
         },
 
-        { level: 9,
+        {
+            level: 9,
             name: "Bot Admin",
-            check: (message) => config.admins.includes(message.author.id)
+            check: (message) => ArtychouConfig.admins.includes(message.author.id)
         },
 
-        { level: 10,
+        {
+            level: 10,
             name: "Bot Owner",
-            check: (message) => config.owner === message.author.id
+            check: (message) => ArtychouConfig.owner === message.author.id
         }
     ],
 
 
     dir: "/Users/mac/WebstormProjects/artychou2",
+
+    apis: {
+        genius: {
+            token : process.env.GENIUSTOKEN,
+            apiUrl: 'https://api.genius.com/search?q='
+        }
+    }
 
 };
 

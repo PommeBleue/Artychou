@@ -10,13 +10,14 @@ class LyricsListener {
     }
 
     async doAsync(message){
+        if(message.attachments.size) return;
         const str = message.content;
         const guild = message.guild;
         const songs = message.songs;
         const currentSongs = songs[`songsarray_${guild.id}`];
         const userId = message.author.id;
         const songsArray = currentSongs.getArray(userId);
-
+        if(songsArray === undefined) return;
         for(let i=0,len = songsArray.length; i<len; i++){
             const song = songsArray[i];
             const lyrics = song.getLyricsInArray();

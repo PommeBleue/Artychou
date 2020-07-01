@@ -25,6 +25,7 @@ class SongsGuildManager {
                 continue;
             }
             this.client.songs[`songsarray_${guild.id}`] = new SongsArrayManger(this.client, guild);
+            console.log(this.client.songs[`songsarray_${guild.id}`]);
             this.userSongs.set(guild.id, {});
         }
         return this;

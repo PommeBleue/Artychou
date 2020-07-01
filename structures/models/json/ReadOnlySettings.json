@@ -1,0 +1,37 @@
+{
+  "prefix": {
+    "type": "string",
+    "changeable": false,
+    "description": "Le prefix par lequel on exécute les commandes. `[prefix] command`"
+  },
+  "titles": {
+    "type": "object",
+    "changeable": true,
+    "description": "Les titres des embeds."
+  },
+  "standard_footer": {
+    "type": "string",
+    "changeable": true,
+    "description": "Le texte qui apparait en bas d'un embed."
+  },
+  "messages": {
+    "type": "string",
+    "changeable": true,
+    "description": "Les descriptions des embeds, ou bien des réponses d'Artychou à certains messages."
+  },
+  "error_messages": {
+    "type": "object",
+    "changeable": true,
+    "description": "Des messages d'erreur."
+  },
+  "colors": {
+    "type": "object",
+    "changeable": true,
+    "description": "Certaines couleurs, utilisées pour les embeds."
+  },
+  "emotes" : {
+    "type" : "object",
+    "changeable": false,
+    "description": "Emotes."
+  }
+}

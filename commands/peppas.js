@@ -14,6 +14,7 @@ class Peppas extends Command {
             usage: "peppas @[user] @[give]${user}",
             aliases: ["blé", "money", "bal", "<:peppas:713401565737910352>", "💵"],
             defaultFetch: ({str, mov}) => getMemberByMixed(str, mov.guild),
+            defaultError: "",
             params: [
                 {
                     name: "user",
@@ -44,19 +45,18 @@ class Peppas extends Command {
         const user = message.users.getUserById(author.id);
         const balance = user.getBalance();
 
-        if(data.default) {
-            const target = data.default.user;
+        if(data && data.defaults) {
+            const target = data.defaults.user;
             const targetId = target.id;
             const targetUser = message.users.getUserById(targetId);
             const targetBalance = targetUser.getBalance();
 
             const peppas = new PeppasEmbed({user: target.username, amount: message.func.numberFormat(targetBalance)}, settings).build();
             return await channel.send({embed: peppas});
-
         }
 
-        if(data !== {}) {
-            console.log(data);
+        if(data && typeof data === 'object') {
+            console.log('object', data);
             const sender = author.id;
             const receiver = data.user ? data.user.user.id : undefined;
             const amount = data.amount ? data.amount : undefined;

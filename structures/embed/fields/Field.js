@@ -22,6 +22,6 @@ class Field {
         return this;
     }
 
-};
+}
 
 module.exports = Field;

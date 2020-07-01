@@ -39,6 +39,7 @@ class UserManager {
                 .setExperience(u.experience >= 0 ? u.experience : 0)
                 .setBotOwner(u.botOwner ? u.botOwner : false);
             this.users.set(user.id, user);
+            this.client.logger.log(`loaded id : ${user.id} username: ${user.username}`);
         }
     }
 

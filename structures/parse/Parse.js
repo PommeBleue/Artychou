@@ -12,10 +12,7 @@ class Parse {
 
     init() {
         const params = this.params;
-        if (params.length === 0) {
-            if (this.args.length === 0) return {};
-            return {".": this.args};
-        }
+        if(this.args.length === 0 || params.length === 0) return undefined;
         this.parseOptions = new ParseOptions(params);
         const opts = this.parseOptions.getOptions();
         const parsedObject = this.parse(opts);
@@ -32,7 +29,7 @@ class Parse {
         let passed = false;
         // TODO : if there is no option passed, fetch default.
         if (keys.length === 1 && keys[0] === "_") {
-            return {default: this};
+            return {defaults: this};
         }
         if (!passed) {
             for (let k in keys) {
@@ -83,8 +80,8 @@ class Parse {
         const channel = this.message.channel;
         const argDefaultData = {};
         const objectValues = this.mov;
-        argDefaultData["default"] = defaultFetch({str: this.args.join(''), mov: objectValues});
-        if (!argDefaultData["default"]) return 'Error';
+        argDefaultData["defaults"] = defaultFetch({str: this.args.join(' '), mov: objectValues});
+        if (!argDefaultData["defaults"]) {return 'Error'};
         return argDefaultData;
     }
 

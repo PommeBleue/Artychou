@@ -49,7 +49,7 @@ module.exports = class ArtychouHandler {
 
         return this;
 
-    }
+    };
 
     loadCommand(cPath, cName){
         try {
