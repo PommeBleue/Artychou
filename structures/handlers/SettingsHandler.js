@@ -67,7 +67,7 @@ module.exports = class SettingsHandler {
         for(const key in defaults) {
             const current = defaults[key];
             if(typeof current === 'object') {
-                result[key] = object ? (this.completeSettings(defaults[key], object[key])) : defaults[key];
+                result[key] = object[key] ? (this.completeSettings(defaults[key], object[key])) : defaults[key];
                 continue;
             }
             result[key] = object !== undefined ? (object[key] ? object[key] : defaults[key]) : defaults[key];
@@ -96,6 +96,7 @@ module.exports = class SettingsHandler {
         let settings = this.settings.get(id);
         if (typeof settings != "object") settings = {};
         settings = this.checkSettings(defaults, settings, newSettings);
+        console.log(settings);
         this.settings.set(id, settings);
     }
 };

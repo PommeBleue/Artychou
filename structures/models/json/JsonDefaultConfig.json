@@ -40,5 +40,9 @@
     "response8" :"Bien sûr, quelle question !",
     "response9" :"Je suis certaine que oui, et je ne me trompe jamais !",
     "response10" :"Ma boule me montre une réponse positive, cela te convient ? Ça fera 1500 Peppas."
+  },
+  "extraits": {
+    "activated": "true",
+    "1984": []
   }
 }

@@ -4,10 +4,10 @@ class EightBall extends Command {
     constructor(client) {
         super(client, {
             name: "8ball",
-            description: "Vous aide un peu.",
-            category: "util-public",
+            description: "Répond à une question.",
+            category: "fun",
             defaultFetch: ({str}) => str,
-            usage: "help [command]",
+            usage: "8ball [question]",
             aliases: ["8", "boule8"],
             params: []
         });

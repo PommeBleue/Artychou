@@ -34,6 +34,7 @@ class LyricsCommand extends Command {
     }
 
     async run(message, args, lvl, data) {
+        return false;
         const guild = message.guild;
         const channel = message.channel;
         const author = message.author;

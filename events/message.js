@@ -1,4 +1,5 @@
 const Parse = require('../structures/parse/Parse');
+const s = require("underscore.string");
 
 module.exports = class {
     constructor(client) {
@@ -19,28 +20,32 @@ module.exports = class {
         message.users = this.client.usermanager;
         message.func = this.client.func;
         message.songs = this.client.songs;
+        message.stringmanip = s;
         let prefix = message.settings.prefix;
+
+        let content = s.clean(message.content);
 
         if(message.guild && !message.channel.permissionsFor(message.guild.me).missing("SEND_MESSAGES")) return;
 
         if(!prefix) return;
 
-        if(message.content.indexOf(message.settings.prefix) !== 0) {
+        if(content.indexOf(message.settings.prefix) !== 0) {
 
             const packages = this.client.packages;
 
             await packages["ThreeMListener"].doAsync(message);
             await packages["AnotherWordListener"].doAsync(message);
-            await packages["LyricsListener"].doAsync(message);
+            await packages["ExtraitsListener"].doAsync(message);
+            //await packages["LyricsListener"].doAsync(message);
 
             const prefixMention = new RegExp(`^<@!?${this.client.user.id}> ?$`);
-            if (message.content.match(prefixMention)) {
+            if (content.match(prefixMention)) {
                 return message.channel.send(`Mon nom à moi est **${this.client.user.tag}** ! ||C'est quoi ton numéro ?||`);
             }
             return;
         }
 
-        const args = message.content.slice(settings.prefix.length).trim().split(/ +/g);
+        const args = content.slice(settings.prefix.length).trim().split(/ +/g);
         const command = args.shift().toLowerCase();
 
         if(message.guild && !message.member) await this.client.users.fetch(message.author.id);

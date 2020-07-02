@@ -41,7 +41,7 @@ class Artychou extends Client {
     async init() {
         await this.usermanager.init();
         this.internal.init();
-        await this.songGuildManger.init();
+        //await this.songGuildManger.init();
         this.handler = await this.handler.init();
         this.settingsHandler = await this.settingsHandler.init();
         return this;
@@ -56,6 +56,7 @@ const client = new Artychou({
         }
     }
 });
+
 
 (async () => await client.login(client.config.token))();
 

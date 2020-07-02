@@ -9,9 +9,9 @@ ArtychouConfig = {
 
     "owner": "479332968242872323",
 
-    "admins": [],
+    "admins": ["390071894226894850", "397492826125893633", "569205521903648780", "470136226381561867"],
 
-    "hysteria": [],
+    "developers": ["479332968242872323"],
 
     "token": process.env.TOKEN,
 
@@ -67,7 +67,7 @@ ArtychouConfig = {
 
         {
             level: 8,
-            name: "Bot Support",
+            name: "Bot Developer",
             check: (message) => ArtychouConfig.hysteria.includes(message.author.id)
         },
 

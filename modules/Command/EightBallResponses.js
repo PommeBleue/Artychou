@@ -16,7 +16,6 @@ class EightBallResponses {
         const responses = this.getResponsesInArray(message);
         return responses[Math.floor(Math.random() * responses.length)];
     }
-
 }
 
-module.exports = EightBallResponses
+module.exports = EightBallResponses;
