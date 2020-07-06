@@ -27,7 +27,7 @@
   "colors": {
     "error_color": "#ed1a1a",
     "success_color": "#24c050",
-    "default_color": " #eea3f7",
+    "default_color": "#eea3f7",
     "blue_color": "#368fea",
     "settings_color": "#f0d275",
     "genius_color": "#fffc64"
