@@ -1,4 +1,3 @@
 build-essential
 manpages-dev
 cmake
-rethinkdb
