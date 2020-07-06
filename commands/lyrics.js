@@ -1,14 +1,16 @@
 const Command = require("../structures/Command");
+const Type = require("../utils/types/TypeUtil");
 const ErrorEmbed = require("../structures/models/embeds/ErrorEmebed");
 const LyricsEmbed = require("../structures/models/embeds/LyricsEmbed");
 const SongsListEmbed = require("../structures/models/embeds/SongsListEmbed");
+const SearchUtils = require("../utils/SearchUtils");
 
 class LyricsCommand extends Command {
     constructor(client) {
         super(client, {
             name: "lyrics",
-            description: "Flemme de la mettre mtn lol",
-            category: "fun",
+            description: "Elle vous permet d'avoir les paroles de vos sons préférées pour chanter correctement (c'est-à-dire avec les paroles exactes, on sait tous que tu chantes comme un chat en train de se faire égorger, ne mens pas je te vois) et faire un karaoké en solo parce que vous êtes seuls.",
+            category: "music",
             usage: "lyrics @[song] or @![user]",
             aliases: ["paroles", "l"],
             defaultFetch: ({str}) => str,
@@ -31,20 +33,28 @@ class LyricsCommand extends Command {
                 }
             ]
         });
+        this.examples = ["`tip lyrics -s Bohemian Rhapsody` (Rajoute les paroles à votre liste)", "`tip lyrics Sou` (Vous montre la liste des paroles enregistrées de Sou)"];
     }
 
     async run(message, args, lvl, data) {
-        return false;
         const guild = message.guild;
         const channel = message.channel;
         const author = message.author;
         const id = author.id;
         const songs = this.client.songs[`songsarray_${guild.id}`].getArray(id);
-        //const finder = message.packages["LyricsFinder"];
 
         if(data && data.defaults) {
-            const fetched = data.defaults;
-            const arg = fetched[0];
+            const defaults = data.defaults;
+            const target = SearchUtils.getMemberByMixed(data.defaults, guild);
+            if(target instanceof Type.MEMBER || target instanceof Type.USER) {
+                const targetId = target.id;
+                const username = target.user.username;
+                const targetSongs = this.client.songs[`songsarray_${guild.id}`].getArray(targetId);
+                const embed = new SongsListEmbed(targetSongs, message.settings).build({isTarget: true, target: username});
+                return await channel.send({embed});
+            }
+            const error = new ErrorEmbed('Error occurred, please try again later.', message.settings).build();
+            return await channel.send({embed : error});
         }
 
         if (data && typeof data === 'object') {
@@ -64,7 +74,9 @@ class LyricsCommand extends Command {
                 const listener = this.client.packages["YesNoListener"];
                 const lyrics = response.getLyricsInArray();
                 console.log(lyrics);
-                if(lyrics === 'error' || lyrics.length === 0) {
+                if(lyrics === 'error' || lyrics.length === 0 || (
+                    lyrics.length === 1
+                )) {
                     this.client.songs[`songsarray_${guild.id}`].pop(id);
                     return await this.notFound(msg, message);
                 }
@@ -82,7 +94,7 @@ class LyricsCommand extends Command {
                         await message.channel.send({embed});
                     }
                 } else {
-                    const error = new ErrorEmbed("Cette chanson ne peut pas être ajoutée puisque trop longue." , message.settings).build();
+                    const error = new ErrorEmbed("Cette chanson ne peut pas être ajoutée puisque trop longue. Pensez à utiliser la commande `tip song [meme nom de musique]` pour pouvoir lire les lyrics et voir si le résultat de la recherche correspond. " , message.settings).build();
                     this.client.songs[`songsarray_${guild.id}`].pop(id);
                     return await message.channel.send({embed: error});
                 }

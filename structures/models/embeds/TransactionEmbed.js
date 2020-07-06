@@ -4,7 +4,7 @@ class TransactionEmbed extends EmbedBuilder {
     constructor({amount, receiver}, settings) {
         super();
         this.color = (settings["colors"])["success_color"];
-        this.title = settings["peppas_title"];
+        this.title = settings["titles"]["peppas_title"];
         this.message = settings["messages"]["standard_transaction_message"].replace("[amount]", amount).replace("[user]", receiver);
     }
 

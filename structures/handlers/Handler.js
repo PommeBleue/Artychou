@@ -60,8 +60,8 @@ module.exports = class ArtychouHandler {
                 props.init(this.client);
             }
             this.commands.set(props.help.name, props);
-            for(let i = 0; i < props.conf.aliases.length; i++) {
-                this.aliases.set(props.conf.aliases[i], props);
+            for(let i = 0; i < props.help.aliases.length; i++) {
+                this.aliases.set(props.help.aliases[i], props);
             }
             return false;
         } catch (e) {
@@ -80,5 +80,13 @@ module.exports = class ArtychouHandler {
 
         delete require.cache[require.resolve(`${cPath}${path.sep}${cName}.js`)];
         return false;
+    }
+
+    getCommands() {
+        return this.commands;
+    }
+
+    getAliases() {
+        return this.aliases;
     }
 };

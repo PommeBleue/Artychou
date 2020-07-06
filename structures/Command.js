@@ -12,8 +12,8 @@ class Command {
         permLevel = "User"
     }) {
         this.client = client;
-        this.conf = { enabled, guildOnly, aliases, permLevel, params, defaultFetch};
-        this.help = { name, description, category, usage };
+        this.conf = { enabled, guildOnly, permLevel, params, defaultFetch};
+        this.help = { name, description, category, usage, aliases };
     }
 }
 

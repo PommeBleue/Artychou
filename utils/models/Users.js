@@ -1,0 +1,1 @@
+module.exports.KEYS = ["id", "bal", "botOwner", "ccount", "daily", "experience", "username", "registeredAt"];

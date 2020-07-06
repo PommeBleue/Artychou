@@ -29,14 +29,14 @@ module.exports = class {
 
         if(!prefix) return;
 
-        if(content.indexOf(message.settings.prefix) !== 0) {
+        if(content.toLowerCase().indexOf(message.settings.prefix) !== 0) {
 
             const packages = this.client.packages;
 
             await packages["ThreeMListener"].doAsync(message);
             await packages["AnotherWordListener"].doAsync(message);
             await packages["ExtraitsListener"].doAsync(message);
-            //await packages["LyricsListener"].doAsync(message);
+            await packages["LyricsListener"].doAsync(message);
 
             const prefixMention = new RegExp(`^<@!?${this.client.user.id}> ?$`);
             if (content.match(prefixMention)) {

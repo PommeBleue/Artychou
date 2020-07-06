@@ -6,7 +6,7 @@ class InternalPackages {
         this.structures = ["structures", {
             Listeners: { argument: "ThreeMListener", word: "AnotherWordListener", lyricsListener: "LyricsListener", extraits: "ExtraitsListener" },
             Lyrics: {finder: "LyricsFinder"},
-            ResponseListeners: {yn: "YesNoListener" },
+            ResponseListeners: {yn: "YesNoListener", word: "OneWordListeners" },
             Settings: {modifier: "SettingsModifier" },
             Command: {huit: "EightBallResponses"}
         }];

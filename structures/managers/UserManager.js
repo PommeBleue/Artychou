@@ -1,4 +1,5 @@
 const User = require("../models/user/User");
+const util = require("../../utils/models/Users");
 const {Collection} = require('discord.js');
 
 class UserManager {
@@ -16,6 +17,7 @@ class UserManager {
         this.table = await this.client.dbService.getTableAsync(this.type);
         await this.loadUsersAsync();
         this.registerUsersFromCache();
+        //this.UpdateUsersAsync();
         return this;
     }
 
@@ -23,7 +25,6 @@ class UserManager {
         let user = this.users.get(id);
         if(!user) {
             throw new Error();
-            return;
         }
         return user;
     }
@@ -32,14 +33,27 @@ class UserManager {
         let table = this.table;
         for(let i=0; i < table.length; i++) {
             let u = table[i];
+            let update = false;
+            for(let i = 0; i < util.KEYS.length; i++) if(u[util.KEYS[i]] === undefined) update = true;
             let user = new User(u.id, u.username)
                 .setBalance(u.bal >= 0 ? u.bal : 0)
                 .setDaily(u.daily>=0 ? u.daily : 0)
                 .setCommandCount(u.ccount >= 0 ? u.daily : 0)
                 .setExperience(u.experience >= 0 ? u.experience : 0)
-                .setBotOwner(u.botOwner ? u.botOwner : false);
+                .setBotOwner(u.botOwner ? u.botOwner : false)
+                .setRegisteredAt(u.registeredAt ? u.registeredAt : Date.now());
             this.users.set(user.id, user);
+            if(update) {
+                await this.UpdateUserAsync(user);
+                this.client.logger.warn(`Updated not valid data for ${user.username} [id : ${user.id}]`);
+            }
             this.client.logger.log(`loaded id : ${user.id} username: ${user.username}`);
+        }
+        const keys = this.users.keyArray();
+        for(let i = 0; i < keys.length; i++) {
+            const key = keys[i];
+            const current = this.users.get(key);
+            console.log(current);
         }
     }
 
@@ -49,8 +63,14 @@ class UserManager {
             return this;
         } catch (e) {
             throw e;
-            return false;
         }
+    }
+
+     async UpdateUsersAsync() {
+        for (const v of this.users) {
+            await this.UpdateUserAsync(v[1]);
+        }
+        return this;
     }
 
     AddUserLocal(user) {

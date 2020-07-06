@@ -9,9 +9,10 @@ class Peppas extends Command {
     constructor(client) {
         super(client, {
             name: "peppas",
-            description: "Vous aide un peu.",
+            description: "Elle vous permet de voir où vous en êtes dans la quête de la richesse et où en sont vos amis ou vos ennemis partageant le serveur. Vous croulez sous l'oseille ou bien vous mangez des cailloux ? On le saura bien assez vite, prolétaire.",
             category: "economy",
             usage: "peppas @[user] @[give]${user}",
+            guildOnly: true,
             aliases: ["blé", "money", "bal", "<:peppas:713401565737910352>", "💵"],
             defaultFetch: ({str, mov}) => getMemberByMixed(str, mov.guild),
             defaultError: "",

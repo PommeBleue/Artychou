@@ -7,7 +7,7 @@ class NumberFormat extends Command {
             name: "numberformat",
             description: "Vous aide un peu.",
             category: "util-public",
-            usage: "help [command]",
+            usage: "numberformat [number]",
             aliases: ["nf"],
             params: []
         });

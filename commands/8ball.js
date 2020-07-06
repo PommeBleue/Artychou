@@ -4,7 +4,7 @@ class EightBall extends Command {
     constructor(client) {
         super(client, {
             name: "8ball",
-            description: "Répond à une question.",
+            description: "Elle te permet d'éclairer ta misérable petite vie en répondant à des questions importantes telles que « Suis-je belle ? » ou bien  « Dois-je faire la vaisselle aujourd'hui ? »",
             category: "fun",
             defaultFetch: ({str}) => str,
             usage: "8ball [question]",

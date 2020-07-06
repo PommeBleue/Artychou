@@ -6,9 +6,9 @@ class YesNoListener {
         this.client = client;
     }
 
-    async listenAsync(message, question){
+    async listenAsync(message, question, limit = 15000){
         const func = message.func;
-        const response = await func.awaitReplyAsync(message, question, 15000);
+        const response = await func.awaitReplyAsync(message, question, limit);
         if(response) {
             const oui = comparer.compareTwoStrings(response.toLowerCase(), 'oui');
             const non = comparer.compareTwoStrings(response.toLowerCase(), 'non');

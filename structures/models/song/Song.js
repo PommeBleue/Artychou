@@ -31,7 +31,7 @@ class Song {
     }
 
     getId() {
-        return this.song["Id"];
+        return this.song["id"];
     }
 
     getReleaseDate() {

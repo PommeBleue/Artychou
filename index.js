@@ -24,12 +24,6 @@ class Artychou extends Client {
 
         this.usermanager = new UserManager(this);
         this.songGuildManger = new SongsGuildManager(this);
-
-        /*this.Ilisteners = {
-            tml: this.internal.get("ThreeMListener"),
-            awl: this.internal.get("AnotherWordListener")
-        };*/
-
         this.func = require("./utils/UtilFunctions");
 
         this.config = require("./config");
@@ -41,7 +35,7 @@ class Artychou extends Client {
     async init() {
         await this.usermanager.init();
         this.internal.init();
-        //await this.songGuildManger.init();
+        await this.songGuildManger.init();
         this.handler = await this.handler.init();
         this.settingsHandler = await this.settingsHandler.init();
         return this;
@@ -56,7 +50,6 @@ const client = new Artychou({
         }
     }
 });
-
 
 (async () => await client.login(client.config.token))();
 

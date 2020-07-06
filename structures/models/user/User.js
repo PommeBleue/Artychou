@@ -13,6 +13,8 @@ class User {
 
         this.ccount = 0;
 
+        this.registeredAt = Date.now();
+
         this.experience = 0;
 
     }
@@ -71,6 +73,11 @@ class User {
         throw new Error();
     }
 
-};
+    setRegisteredAt(date) {
+        this.registeredAt = date;
+        return this;
+    }
+
+}
 
 module.exports = User;

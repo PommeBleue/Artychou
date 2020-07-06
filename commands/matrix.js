@@ -6,9 +6,8 @@ class Matrix extends Command {
     constructor(client) {
         super(client, {
             name: "matrix",
-            description: "Fait une matrice carrée de taille 3 dont tous les coefficients sont représentés par un émoji.",
-            urlDescription: "https://en.wikipedia.org/wiki/Levenshtein_distance",
-            category: "string",
+            description: "Fait une matrice carrée de taille 3 à 7 dont tous les coefficients sont représentés par un émoji.",
+            category: "MATRICE!",
             usage: "matrix [émoji]",
             aliases: ["em"],
             params: []

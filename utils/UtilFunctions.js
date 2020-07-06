@@ -84,10 +84,9 @@ module.exports.cleanTextAsync = async (text) => {
  */
 module.exports.awaitReplyAsync = async (message, question, limit = 6000) => {
     const filter = m => m.author.id === message.author.id && !(m.author.bot);
-    const msg = await message.channel.send(question);
+    if(question) await message.channel.send(question);
     try {
         const collected = await message.channel.awaitMessages(filter, { max: 1, time: limit, errors: ["time"] });
-        if(!collected) if(msg.deletable) await message.delete();
         return collected.first().content;
     } catch (e) {
         return false;

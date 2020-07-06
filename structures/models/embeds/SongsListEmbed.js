@@ -9,15 +9,20 @@ class SongsListEmbed extends EmbedBuilder {
         this.songs = songs;
     }
 
-    build() {
+    build(opts = undefined) {
+        let isTarget, target = false;
+        if(opts) {
+            isTarget = opts.isTarget;
+            target = opts.target;
+        }
         const array = [];
         const songs = this.songs;
         if(songs !== undefined && songs.length){
             for(let x in songs) {
                 const song = songs[x];
-                array.push(`**${Number(x)+1}.** ${song.getFullTitle()}`);
+                array.push(`**${Number(x)+1}.** ${song.getFullTitle ? song.getFullTitle() : song["song"]["full_title"]}`);
             }
-        } else array.push("Vous n'avez aucune musique enregistrée ouin ouin.");
+        } else array.push(target && isTarget ? `${target} n'a aucune musique d'enregistrée ouin ouin` : "Vous n'avez aucune musique enregistrée ouin ouin.");
         const title = this.title;
         const footer = this.footer;
         const color = this.color;

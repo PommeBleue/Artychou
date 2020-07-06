@@ -7,8 +7,8 @@ class Help extends Command {
             name: "extraits",
             description: "Active ou desactive les réponses aux extraits.",
             category: "util",
-            usage: "help [command]",
-            aliases: ["?", "h", "aide-moi_slp"],
+            usage: "extraits",
+            aliases: [],
             params: [],
             permLevel: "Bot Admin"
         });

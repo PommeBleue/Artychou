@@ -8,8 +8,8 @@ class SettingsCommand extends Command {
         super(client, {
             name: "settings",
             description: "Flemme de la mettre mtn lol",
-            category: "fun",
-            usage: "settings @[song] or @![user]",
+            category: "util",
+            usage: "settings @[path] @[value]${path}",
             aliases: ["s"],
             defaultFetch: ({str}) => str,
             params: [
@@ -58,7 +58,7 @@ class SettingsCommand extends Command {
             if (data["path"] && data["set"]) {
                 const path = data["path"].split(/\s/);
                 const newValue = data["set"];
-                const safeNewValue = (newValue === 'true' || newValue === 'false') ? (newValue === 'true' ? true : false) : (/^\d+$/.test(newValue) ? Number(newValue) : newValue);
+                const safeNewValue = (newValue === 'true' || newValue === 'false') ? (newValue === 'true') : (/^\d+$/.test(newValue) ? Number(newValue) : newValue);
                 const bool = module.modify(path, guild, safeNewValue);
                 if (!bool) return false;
                 const embed = new SuccessEmbed(`${data["path"]} a été modifié avec succès. Nouvelle valeur \`${data["set"]}\``, message.settings).build();
@@ -71,7 +71,7 @@ class SettingsCommand extends Command {
 
         const readOnly = module.getReadOnlySettings();
         if (!readOnly) {
-            const error = new ErrorEmbed("Une erreur s'est produite, tu peux réessayer pour voir ma belle ?");
+            const error = new ErrorEmbed("Une erreur s'est produite, tu peux réessayer pour voir ma belle ?", message.settings).build();
             await message.channel.send({embed: error});
         }
         const embed = this.getDefaultKeys(readOnly, message.settings);

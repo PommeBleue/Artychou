@@ -17,6 +17,7 @@ class SongsGuildManager {
             if(this.userSongs.has(id)) {
                 const object = map.get(id);
                 const manager = new SongsArrayManger(this.client, guild);
+                await manager.init();
                 for(const key in object) {
                     const value = object[key];
                     await manager.setSongsInArray(key, value);
@@ -25,7 +26,7 @@ class SongsGuildManager {
                 continue;
             }
             this.client.songs[`songsarray_${guild.id}`] = new SongsArrayManger(this.client, guild);
-            console.log(this.client.songs[`songsarray_${guild.id}`]);
+            //console.log(this.client.songs[`songsarray_${guild.id}`]);
             this.userSongs.set(guild.id, {});
         }
         return this;

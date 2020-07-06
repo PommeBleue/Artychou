@@ -39,7 +39,6 @@ class DataBaseService {
             db.table(type).get(object.id).update(object).run();
         } catch (e) {
             throw e;
-            return;
         }
         return this;
     }

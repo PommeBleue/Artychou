@@ -7,11 +7,15 @@ config({
 let ArtychouConfig;
 ArtychouConfig = {
 
+    "prefixes": ["tip", "artychou.", "t-"],
+
     "owner": "479332968242872323",
 
     "admins": ["390071894226894850", "397492826125893633", "569205521903648780", "470136226381561867"],
 
     "developers": ["479332968242872323"],
+
+    "spacial": ["390071894226894850", "397492826125893633"],
 
     "token": process.env.TOKEN,
 
@@ -66,15 +70,21 @@ ArtychouConfig = {
         },
 
         {
-            level: 8,
+            level: 7,
             name: "Bot Developer",
-            check: (message) => ArtychouConfig.hysteria.includes(message.author.id)
+            check: (message) => ArtychouConfig.developers.includes(message.author.id)
+        },
+
+        {
+            level: 8,
+            name: "Bot Admin",
+            check: (message) => ArtychouConfig.admins.includes(message.author.id)
         },
 
         {
             level: 9,
-            name: "Bot Admin",
-            check: (message) => ArtychouConfig.admins.includes(message.author.id)
+            name: "Special Members",
+            check: (message) => ArtychouConfig.spacial.includes(message.author.id)
         },
 
         {
