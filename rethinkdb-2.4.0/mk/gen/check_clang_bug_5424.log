@@ -1,4 +1,0 @@
-./mk/gen/check_clang_bug_5424.cc:18:9: warning: expression result unused [-Wunused-value]
-        data_struct_t{1, 2};
-        ^            ~~~~~~
-1 warning generated.

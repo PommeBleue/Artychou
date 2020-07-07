@@ -1,0 +1,5 @@
+build-essential protobuf-compiler python
+manpages-dev
+libprotobuf-dev libcurl4-openssl-dev
+libboost-all-dev libncurses5-dev
+libjemalloc-dev wget m4
