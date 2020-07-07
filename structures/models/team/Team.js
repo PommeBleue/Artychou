@@ -9,7 +9,7 @@ class Team {
 
         this.users = [];
 
-        this.description = "A team."
+        this.description = "A team.";
 
         this.leader = "0";
 
@@ -27,9 +27,11 @@ class Team {
 
         this.thumbnail = "https://www.cned.fr/media/css/commun/header_logoCned.png?2018.04.13"
 
-        this.slogan = "Philosophiae Naturalis Principia Mathematica"
+        this.slogan = "Philosophiae Naturalis Principia Mathematica";
 
-        this.balance = 0
+        this.balance = 0;
+
+        this.claimed = [];
 
     }
 
@@ -84,6 +86,10 @@ class Team {
 
     getBalance() {
         return this.balance;
+    }
+
+    getUsersWhoClaimed() {
+        return this.claimed;
     }
 
     setName(name) {
@@ -157,6 +163,11 @@ class Team {
 
     setBalance(amount) {
         this.balance = amount
+        return this;
+    }
+
+    setUsersWhoClaimed(array){
+        this.claimed = array;
         return this;
     }
 

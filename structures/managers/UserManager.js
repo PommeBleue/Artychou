@@ -17,7 +17,7 @@ class UserManager {
         this.table = await this.client.dbService.getTableAsync(this.type);
         await this.loadUsersAsync();
         this.registerUsersFromCache();
-        //this.UpdateUsersAsync();
+        this.UpdateUsersAsync();
         return this;
     }
 

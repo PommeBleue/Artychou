@@ -33,6 +33,9 @@ class Logger {
             case "ready": {
                 return console.log(`${timestamp} ${chalk.black.bgGreen(type.toUpperCase())} ${content}`);
             }
+            case "event": {
+                return console.log(`${timestamp} ${chalk.black.bgHex('#eea3f7')(type.toUpperCase())} ${content}`);
+            }
             default: throw new TypeError("Logger type must be either warn, debug, log, ready, cmd or error.");
         }
     }
@@ -51,6 +54,10 @@ class Logger {
 
     static cmd (content) {
         return this.log(content, "cmd");
+    }
+
+    static event (content) {
+        return this.log(content, "event");
     }
 }
 

@@ -7,9 +7,9 @@ const solenolyrics = require('solenolyrics');
  * @description Waits {time} and then returns a {Promise}.
  */
 module.exports.delayAsync = async (time) => {
-        return new Promise((resolve, reject) => {
-            setTimeout(resolve, time);
-        });
+    return new Promise((resolve, reject) => {
+        setTimeout(resolve, time);
+    });
 };
 
 
@@ -22,19 +22,19 @@ module.exports.delayAsync = async (time) => {
  * ET PUIS QUOI ENCORE HEIN, JE DOIS TOUT EXPLIQUER ? VOUS SAVEZ LIRE NON, ALORS LISEZ CE CODE POUR LE COMPRENDRE.
  */
 module.exports.permlevel = (message, client) => {
-        let permlvl = 0;
+    let permlvl = 0;
 
-        const permOrder = client.config.permLevels.slice(0).sort((p, c) => p.level < c.level ? 1 : -1);
+    const permOrder = client.config.permLevels.slice(0).sort((p, c) => p.level < c.level ? 1 : -1);
 
-        while (permOrder.length) {
-            const currentLevel = permOrder.shift();
-            if (message.guild && currentLevel.guildOnly) continue;
-            if (currentLevel.check(message)) {
-                permlvl = currentLevel.level;
-                break;
-            }
+    while (permOrder.length) {
+        const currentLevel = permOrder.shift();
+        if (message.guild && currentLevel.guildOnly) continue;
+        if (currentLevel.check(message)) {
+            permlvl = currentLevel.level;
+            break;
         }
-        return permlvl;
+    }
+    return permlvl;
 };
 
 /**
@@ -60,7 +60,7 @@ module.exports.cleanTextAsync = async (text) => {
     if (text && text.constructor.name == "Promise")
         text = await text;
     if (typeof text !== "string")
-        text = require("util").inspect(text, { depth: 1 });
+        text = require("util").inspect(text, {depth: 1});
 
     text = text
         .replace(/`/g, "`" + String.fromCharCode(8203))
@@ -84,9 +84,9 @@ module.exports.cleanTextAsync = async (text) => {
  */
 module.exports.awaitReplyAsync = async (message, question, limit = 6000) => {
     const filter = m => m.author.id === message.author.id && !(m.author.bot);
-    if(question) await message.channel.send(question);
+    if (question) await message.channel.send(question);
     try {
-        const collected = await message.channel.awaitMessages(filter, { max: 1, time: limit, errors: ["time"] });
+        const collected = await message.channel.awaitMessages(filter, {max: 1, time: limit, errors: ["time"]});
         return collected.first().content;
     } catch (e) {
         return false;
@@ -94,18 +94,25 @@ module.exports.awaitReplyAsync = async (message, question, limit = 6000) => {
 };
 
 module.exports.parseInt = (number) => {
-    const supportedFormat = ["k","m"];
+    const supportedFormat = ["k", "m"];
     console.log(number);
     const str = typeof number !== 'string' ? String(number) : number;
     let multiplier = null;
     if (supportedFormat.some(e => {
         multiplier = e;
-        return e === str[str.length -1].toLowerCase();
+        return e === str[str.length - 1].toLowerCase();
     })) {
-        const newStr = str.slice(0, str.length -1);
+        const newStr = str.slice(0, str.length - 1);
         const newNumber = Number(newStr);
         return newNumber * (supportedFormat.indexOf(multiplier) === 0 ? 1000 : 1000000);
     }
+};
+
+module.exports.parseTime = (time) => {
+    const hours = Math.floor(time / 1000 / 60 / 60)
+    const minutes = Math.floor((time - (hours * 1000 * 60 * 60))/1000/60);
+    const seconds = Math.floor((time - (hours * 1000 * 60 * 60) - (minutes * 1000 * 60)) / 1000);
+    return `${hours} Heure(s) ${minutes} minute(s) et ${seconds} seconde(s)`;
 };
 
 

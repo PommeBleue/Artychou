@@ -6,6 +6,8 @@ const Handler = require('./structures/handlers/Handler');
 const SettingsHandler = require("./structures/handlers/SettingsHandler")
 const DataBaseService = require("./database/DataBaseService");
 const UserManager = require("./structures/managers/UserManager");
+const TeamsManger = require("./structures/managers/TeamsManager");
+const ModulesManager = require("./structures/managers/ModulesManager");
 const SongsGuildManager = require("./structures/managers/SongsGuildManager");
 
 
@@ -23,6 +25,8 @@ class Artychou extends Client {
         this.dbService = new DataBaseService(this).init();
 
         this.usermanager = new UserManager(this);
+        this.teamanger = new TeamsManger(this);
+        this.modules = new ModulesManager(this);
         this.songGuildManger = new SongsGuildManager(this);
         this.func = require("./utils/UtilFunctions");
 
@@ -34,6 +38,8 @@ class Artychou extends Client {
 
     async init() {
         await this.usermanager.init();
+        await this.teamanger.init();
+        this.modules.init();
         this.internal.init();
         await this.songGuildManger.init();
         this.handler = await this.handler.init();

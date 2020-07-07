@@ -1,0 +1,4 @@
+./mk/gen/check_jemalloc.cc:7:5: error: static_assert failed "jemalloc version 4 or above is required"
+    static_assert(JEMALLOC_VERSION_MAJOR >= 4, "jemalloc version 4 or above is required");
+    ^             ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
