@@ -11,13 +11,11 @@ class Team {
 
         this.description = "A team.";
 
-        this.leader = "0";
+        this.leader = String();
 
-        this.songs = [];
+        this.songs =[];
 
         this.acheivements = [];
-
-        this.power = 0;
 
         this.enemy = [];
 
@@ -47,6 +45,10 @@ class Team {
         return this.users;
     }
 
+    getDescription() {
+        return this.description;
+    }
+
     getTeamLeader() {
         return (this.leader.match(/\d+/) || [])[0];
     }
@@ -57,11 +59,6 @@ class Team {
 
     getAchievements() {
         return this.acheivements;
-    }
-
-
-    getPower() {
-        return this.power;
     }
 
     getTeamEnemy() {
@@ -102,6 +99,11 @@ class Team {
         return this;
     }
 
+    setDescription(description) {
+        this.description = description;
+        return this;
+    }
+
     setTeamLeader(id) {
         this.leader = (id.match(/\d+/) || [])[0];
         return this;
@@ -117,13 +119,20 @@ class Team {
         return this;
     }
 
-    setPower(power) {
-        this.power = power;
+    setAchievements(array) {
+        if(!Array.isArray(array)) throw new TypeError();
+        this.acheivements = array;
         return this;
     }
 
     addTeamEnemy(enemy) {
         this.enemy.push(enemy);
+        return this;
+    }
+
+    setTeamEnemies(array) {
+        if(!Array.isArray(array)) throw new TypeError();
+        this.enemy = array;
         return this;
     }
 
@@ -134,6 +143,12 @@ class Team {
 
     addTeamAlly(id) {
         this.ally.push(id);
+        return this;
+    }
+
+    setTeamAllies(array) {
+        if(!Array.isArray(array)) throw new TypeError();
+        this.ally = array;
         return this;
     }
 

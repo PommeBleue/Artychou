@@ -10,7 +10,7 @@ class RemainingTimeEmbed extends EmbedBuilder {
     }
 
     build(streak) {
-        if(streak > 0) this.addField('Jous consécutifs', streak);
+        if(streak > 0) this.addField('Jours consécutifs', streak);
         return this;
     }
 

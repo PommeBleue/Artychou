@@ -10,6 +10,7 @@ class UserManager {
         this.client = client;
         this.table = null;
 
+        this.teams = client.teamanger;
         this.users = new Collection();
     }
 
@@ -23,9 +24,7 @@ class UserManager {
 
     getUserById(id) {
         let user = this.users.get(id);
-        if(!user) {
-            throw new Error();
-        }
+        if(!user) throw new Error();
         return user;
     }
 
@@ -41,19 +40,14 @@ class UserManager {
                 .setCommandCount(u.ccount >= 0 ? u.daily : 0)
                 .setExperience(u.experience >= 0 ? u.experience : 0)
                 .setBotOwner(u.botOwner ? u.botOwner : false)
-                .setRegisteredAt(u.registeredAt ? u.registeredAt : Date.now());
+                .setRegisteredAt(u.registeredAt ? u.registeredAt : Date.now())
+                .setTeam(u.team ? u.team : null);
             this.users.set(user.id, user);
             if(update) {
                 await this.UpdateUserAsync(user);
                 this.client.logger.warn(`Updated not valid data for ${user.username} [id : ${user.id}]`);
             }
             this.client.logger.log(`loaded id : ${user.id} username: ${user.username}`);
-        }
-        const keys = this.users.keyArray();
-        for(let i = 0; i < keys.length; i++) {
-            const key = keys[i];
-            const current = this.users.get(key);
-            console.log(current);
         }
     }
 

@@ -1,3 +1,5 @@
+const Team = require("../team/Team");
+
 class User {
     constructor(id, username) {
 
@@ -14,6 +16,8 @@ class User {
         this.ccount = 0;
 
         this.registeredAt = Date.now();
+
+        this.team = null;
 
         this.experience = 0;
 
@@ -62,6 +66,13 @@ class User {
 
     setBotOwner(boolean = false) {
         this.botOwner = boolean;
+        return this;
+    }
+
+    setTeam(team) {
+        if(team === null) this.team = null;
+        if(!team instanceof Team) throw new TypeError();
+        this.team = team;
         return this;
     }
 

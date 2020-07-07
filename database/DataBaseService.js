@@ -17,7 +17,6 @@ class DataBaseService {
             table = db.table(type);
         } catch (e) {
             throw e;
-            return;
         }
         return table;
     }
@@ -28,7 +27,6 @@ class DataBaseService {
             db.table(type).insert(object).run();
         } catch (e)  {
             throw e;
-            return;
         }
         return this;
     }
