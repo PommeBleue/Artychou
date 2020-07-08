@@ -101,6 +101,10 @@ ArtychouConfig = {
         genius: {
             token : process.env.GENIUSTOKEN,
             apiUrl: 'https://api.genius.com/search?q='
+        },
+        iss: {
+            token: null,
+            apiUrl : 'http://api.open-notify.org/iss-now.json'
         }
     }
 

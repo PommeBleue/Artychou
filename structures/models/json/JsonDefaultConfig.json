@@ -1,6 +1,7 @@
 {
   "prefix": "tip",
   "titles": {
+    "iss_title": "Station Spatiale Internationale.",
     "teams_title": "Teams !",
     "success_title": "Look, it's forking working ! Derek did that !",
     "daily_title": "Dailyy !",
@@ -15,6 +16,7 @@
   },
   "standard_footer" : "Artychou 1.0.0",
   "messages": {
+    "iss_message": "L'ISS est actuellement à la position **[long], [lat]**.",
     "teams_message": "À modifier.",
     "daily_message": "De l'argent ! Ton gain s'élève aujourd'hui à [gain] peppas !",
     "daily_remaining": "Il vous reste [time] avant de pouvoir récupérer votre gain quotidien.",

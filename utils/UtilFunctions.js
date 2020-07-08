@@ -1,4 +1,6 @@
 const solenolyrics = require('solenolyrics');
+const {cleanDiacritics, capitalize} = require("underscore.string");
+const {MONTHS} = require("./types/TypeUtil");
 
 /**
  *
@@ -110,9 +112,42 @@ module.exports.parseInt = (number) => {
 
 module.exports.parseTime = (time) => {
     const hours = Math.floor(time / 1000 / 60 / 60)
-    const minutes = Math.floor((time - (hours * 1000 * 60 * 60))/1000/60);
+    const minutes = Math.floor((time - (hours * 1000 * 60 * 60)) / 1000 / 60);
     const seconds = Math.floor((time - (hours * 1000 * 60 * 60) - (minutes * 1000 * 60)) / 1000);
     return `${hours} Heure(s) ${minutes} minute(s) et ${seconds} seconde(s)`;
 };
 
 
+module.exports.isDay = (str) => {
+    if (/\d{2}/) {
+        const day = Number(str);
+        return !(day > 31 || day < 1);
+    }
+    return false;
+};
+
+const isMonth = (str) => {
+    const month = cleanAll(str);
+    return MONTHS.some(x => x.indexOf(month));
+};
+
+module.exports.isYear = (str) => {
+    return /\d{4}/.test(str);
+};
+
+const cleanAll = (str) => {
+    return capitalize(cleanDiacritics(str), true);
+};
+
+module.exports.returnMonth = (str) => {
+    const m = cleanAll(str);
+    if (!isMonth(m)) return false;
+    for (let i = 0, len = MONTHS.length; i < len; i++) {
+        const month = MONTHS[i];
+        if(month.includes(m)) return i + 1;
+    }
+};
+
+module.exports.getMonth  = (index) => {
+  return MONTHS[index][2];
+};
