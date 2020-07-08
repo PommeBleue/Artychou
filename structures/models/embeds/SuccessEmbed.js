@@ -1,19 +1,19 @@
 const EmbedBuilder = require('../../embed/EmbedBuilder');
 
 class SuccessEmbed extends EmbedBuilder {
-    constructor(message, settings) {
+    constructor(description, settings) {
         super();
         this.color = (settings["colors"])["success_color"];
-        this.title = settings["titles"]["peppas_title"];
-        this.message = message;
+        this.title = settings["titles"]["success_title"];
+        this.description = description;
     }
 
     build() {
         const title = this.title;
-        const message = this.message;
+        const description = this.description;
         const color = this.color;
         this.setTitle(title)
-            .setDescription(message)
+            .setDescription(description)
             .setColor(color);
 
         return this;

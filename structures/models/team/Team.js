@@ -99,8 +99,19 @@ class Team {
         return this;
     }
 
+    addUser(id) {
+        this.users.push(id);
+        return this;
+    }
+
+    removeUser(id) {
+        const { users } = this;
+        this.users = users.filter(x => x !== id);
+        return this;
+    }
+
     setDescription(description) {
-        this.description = description;
+        if(description) this.description = description;
         return this;
     }
 
@@ -158,14 +169,14 @@ class Team {
     }
 
     setColor(color) {
-        const safeColor = (color.math(/^(\#)[x00-xF7]{6}$/gm) || [])[0];
+        const safeColor = (color.match(/^(\#)[x00-xF7]{6}$/gm) || [])[0];
         if(!safeColor || !safeColor.length) throw new TypeError('Not valid color');
         this.color = safeColor;
         return this;
     }
 
     setThumbnail(url) {
-        const safeUrl = (url.match(/^(https:\/\/)[x00-xF7\.]+(.)[x00-xF7\/\?]+$/gm) || [])[0];
+        const safeUrl = (url.match(/^(https:\/\/)[x00-xF7.]+(.)[x00-xF7.\/?_]+$/gm) || [])[0];
         if(!safeUrl || !safeUrl.length) throw new TypeError('Not valid url');
         this.thumbnail = safeUrl;
         return this;

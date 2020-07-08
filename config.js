@@ -15,7 +15,7 @@ ArtychouConfig = {
 
     "developers": ["479332968242872323"],
 
-    "spacial": ["390071894226894850", "397492826125893633"],
+    "special": ["390071894226894850", "397492826125893633", "479332968242872323"],
 
     "token": process.env.TOKEN,
 
@@ -84,7 +84,7 @@ ArtychouConfig = {
         {
             level: 9,
             name: "Special Members",
-            check: (message) => ArtychouConfig.spacial.includes(message.author.id)
+            check: (message) => ArtychouConfig.special.includes(message.author.id)
         },
 
         {

@@ -36,6 +36,10 @@ class User {
         return this.botOwner;
     }
 
+    getTeam() {
+        return this.team;
+    }
+
     getBalance(){
         return this.bal;
     }
@@ -73,6 +77,11 @@ class User {
         if(team === null) this.team = null;
         if(!team instanceof Team) throw new TypeError();
         this.team = team;
+        return this;
+    }
+
+    leaveTeam() {
+        this.team = null;
         return this;
     }
 

@@ -19,12 +19,13 @@ class UserManager {
         await this.loadUsersAsync();
         this.registerUsersFromCache();
         this.UpdateUsersAsync();
+        console.log(this.users);
         return this;
     }
 
     getUserById(id) {
         let user = this.users.get(id);
-        if(!user) throw new Error();
+        if(!user) throw new Error('User not found');
         return user;
     }
 
@@ -37,7 +38,7 @@ class UserManager {
             let user = new User(u.id, u.username)
                 .setBalance(u.bal >= 0 ? u.bal : 0)
                 .setDaily(u.daily>=0 ? u.daily : 0)
-                .setCommandCount(u.ccount >= 0 ? u.daily : 0)
+                .setCommandCount(u.ccount >= 0 ? u.ccount : 0)
                 .setExperience(u.experience >= 0 ? u.experience : 0)
                 .setBotOwner(u.botOwner ? u.botOwner : false)
                 .setRegisteredAt(u.registeredAt ? u.registeredAt : Date.now())

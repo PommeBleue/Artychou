@@ -3,7 +3,7 @@ const Enmap = require('enmap');
 class Daily {
     constructor(client) {
         this.client = client;
-        this.daily = new Enmap({name: "settings", cloneLevel: "deep", fetchAll: false, autoFetch: true});
+        this.daily = new Enmap({name: "daily", cloneLevel: "deep", fetchAll: false, autoFetch: true});
     }
 
     newClaimedAt(id) {

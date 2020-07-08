@@ -1,6 +1,8 @@
 {
   "prefix": "tip",
   "titles": {
+    "teams_title": "Teams !",
+    "success_title": "Look, it's forking working ! Derek did that !",
     "daily_title": "Dailyy !",
     "standard_error_title" : "❌ Il y a eu comme une erreur mon chou.",
     "peppas_title" : "<:peppas:713401565737910352> Peppas",
@@ -13,6 +15,7 @@
   },
   "standard_footer" : "Artychou 1.0.0",
   "messages": {
+    "teams_message": "À modifier.",
     "daily_message": "De l'argent ! Ton gain s'élève aujourd'hui à [gain] peppas !",
     "daily_remaining": "Il vous reste [time] avant de pouvoir récupérer votre gain quotidien.",
     "help_message": "Salut ! Tu veux de l'aide ? Eh bien, sois content, mon maître m'y oblige. Pour commencer, un `tip help [commande]` te permet d'en savoir plus sur la commande en question. Vous receverez un embed contenant la syntaxe à suivre pour la commande, une description et des exemples. Enjoy Gays !",

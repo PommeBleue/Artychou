@@ -7,6 +7,7 @@ const SettingsHandler = require("./structures/handlers/SettingsHandler")
 const DataBaseService = require("./database/DataBaseService");
 const UserManager = require("./structures/managers/UserManager");
 const TeamsManger = require("./structures/managers/TeamsManager");
+const RequestManger = require("./structures/managers/RequestManager");
 const ModulesManager = require("./structures/managers/ModulesManager");
 const SongsGuildManager = require("./structures/managers/SongsGuildManager");
 
@@ -27,6 +28,7 @@ class Artychou extends Client {
         this.usermanager = new UserManager(this);
         this.teamanger = new TeamsManger(this);
         this.modules = new ModulesManager(this);
+        this.requestManager = new RequestManger(this);
         this.songGuildManger = new SongsGuildManager(this);
         this.func = require("./utils/UtilFunctions");
 

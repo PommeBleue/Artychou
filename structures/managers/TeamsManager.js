@@ -8,18 +8,19 @@ class TeamsManager {
         this.type = "teams";
 
         this.teams = new Collection();
-        this.users = client.usermanager;
     }
 
     async init() {
         const type = this.type;
         this.table = await this.client.dbService.getTableAsync(type);
         this.loadTeams();
+        console.log(this.teams);
         return this;
     }
 
     loadTeams() {
         const table = this.table;
+        const { usermanager } = this.client;
         for(const key in table) {
             const t = table[key];
             const team = new Team(t.id, t.name)
@@ -28,13 +29,17 @@ class TeamsManager {
                 .setSlogan(t.slogan)
                 .setTeamSongs(t.songs)
                 .setUsers(t.users)
+                .setTeamLeader(t.leader)
                 .setAchievements(t.acheivements)
                 .setUsersWhoClaimed(t.claimed)
                 .setTeamEnemies(t.enemy)
                 .setTeamAllies(t.ally)
                 .setThumbnail(t.thumbnail);
             this.teams.set(team.id, team);
+            const { users } = team;
+            for( let i = 0; i < users.length; i ++) usermanager.getUserById(users[i]).setTeam(team);
         }
+        console.log(usermanager.users);
     }
 
     getTeamPower(team) {
@@ -58,9 +63,12 @@ class TeamsManager {
     }
 
     hasTeam(userId) {
-        this.teams.forEach((team, id) => {
-            if(team.users.includes(userId)) return true;
-        });
+        const keys = this.teams.keyArray();
+        for(let i = 0; i < keys.length; i++) {
+            const key = keys[i];
+            const current = this.teams.get(key);
+            if(current.users.includes(userId)) return true;
+        }
         return false;
     }
 
@@ -94,7 +102,8 @@ class TeamsManager {
 
     UpdateTeamLocal(team) {
         if(!(team instanceof Team)) throw new TypeError('team has to be instance of Team');
-        this.teams.set(team.id, id);
+        const  { id } = team;
+        this.teams.set(id, team);
         return this;
     }
 
@@ -105,14 +114,15 @@ class TeamsManager {
         return this;
     }
 
-    async CreateNewTeamAsync({name, description = 'A team.', leader}) {
+    async CreateNewTeamAsync(name, description, leader) {
         if(name.length < 3 || name.length > 16) return 'not valid name';
-        const { modules, dbService } = this.client;
+        const { modules, dbService, usermanager } = this.client;
         const id = modules.module('IdGen').generate(name);
         const safeId = (String(leader).match(/\d+/));
         if(safeId === null) return 'error';
-        const team = new Team(id, name).setDescription(description).setTeamLeader(safeId[0]);
+        const team = new Team(id, name).setDescription(description).setTeamLeader(safeId[0]).addUser(safeId[0]);
         this.teams.set(id, team);
+        usermanager.getUserById(leader).setTeam(team);
         await dbService.AddInTableAsync(this.type, team);
         return team;
     }

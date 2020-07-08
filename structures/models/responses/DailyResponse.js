@@ -2,7 +2,7 @@ class DailyResponse {
     constructor(props) {
         this.gain = props["gain"];
         this.streak = props["streak"];
-        this.special = props["spacial"];
+        this.special = props["special"];
     }
 
     isSpecial() {
