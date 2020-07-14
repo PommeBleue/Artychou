@@ -7,9 +7,9 @@ require('moment-duration-format');
 class ISSCommand extends Command {
     constructor(client) {
         super(client, {
-            name: "whereisiss",
+            name: "daysuntil",
             description: "Vous combien de temps reste-il avant une certaine date.",
-            category: "until",
+            category: "util-public",
             usage: "tip daysuntil [day] [month]",
             aliases: ["du"],
             params: []

@@ -135,6 +135,28 @@ module.exports.isYear = (str) => {
     return /\d{4}/.test(str);
 };
 
+module.exports.percentColor = (pct, percentColors) => {
+    let i = 1;
+    for (i; i < percentColors.length - 1; i++) {
+        if (pct < percentColors[i].pct) {
+            break;
+        }
+    }
+    const lower = percentColors[i - 1];
+    const upper = percentColors[i];
+    const range = upper.pct - lower.pct;
+    const rangePct = (pct - lower.pct) / range;
+    const pctLower = 1 - rangePct;
+    const pctUpper = rangePct;
+    const color = {
+        r: Math.floor((lower.color.r * pctLower) + (upper.color.r * pctUpper)).toString(16).padStart(2, '0'),
+        g: Math.floor((lower.color.g * pctLower) + (upper.color.g * pctUpper)).toString(16).padStart(2, '0'),
+        b: Math.floor((lower.color.b * pctLower) + (upper.color.b * pctUpper)).toString(16).padStart(2, '0')
+    };
+    return `#${color.r}${color.g}${color.b}`;
+};
+
+
 const cleanAll = (str) => {
     return capitalize(cleanDiacritics(str), true);
 };
@@ -146,6 +168,14 @@ module.exports.returnMonth = (str) => {
         const month = MONTHS[i];
         if(month.includes(m)) return i + 1;
     }
+};
+
+module.exports.random = (max)  => {
+    return Math.floor(Math.random() * max);
+};
+
+module.exports.shorten = (text, maxLen = 2000) => {
+    return text.length > maxLen ? `${text.substr(0, maxLen - 3)}...` : text;
 };
 
 module.exports.getMonth  = (index) => {

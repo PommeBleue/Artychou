@@ -36,7 +36,7 @@ class UserManager {
             let update = false;
             for(let i = 0; i < util.KEYS.length; i++) if(u[util.KEYS[i]] === undefined) update = true;
             let user = new User(u.id, u.username)
-                .setBalance(u.bal >= 0 ? u.bal : 0)
+                .setBalance(u.bal >= 0 ? Math.ceil(u.bal) : 0)
                 .setDaily(u.daily>=0 ? u.daily : 0)
                 .setCommandCount(u.ccount >= 0 ? u.ccount : 0)
                 .setExperience(u.experience >= 0 ? u.experience : 0)

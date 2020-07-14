@@ -1,6 +1,8 @@
 {
   "prefix": "tip",
   "titles": {
+    "craft_title": "Espace",
+    "chance_title": "TENTE TA CHANCE !!",
     "iss_title": "Station Spatiale Internationale.",
     "teams_title": "Teams !",
     "success_title": "Look, it's forking working ! Derek did that !",
@@ -16,7 +18,10 @@
   },
   "standard_footer" : "Artychou 1.0.0",
   "messages": {
-    "iss_message": "L'ISS est actuellement à la position **[long], [lat]**.",
+    "craft_message": "Il y a actuellement [int] personnes dans l'espace.",
+    "win_chance_message": "Bravo ! Tu as gagné `[amount]` peppas.",
+    "loose_chance_message": "Désolé pour toi, tu as perdu `[amount]` peppas.",
+    "iss_message": "L'ISS est actuellement à la position **[lat], [long]**.",
     "teams_message": "À modifier.",
     "daily_message": "De l'argent ! Ton gain s'élève aujourd'hui à [gain] peppas !",
     "daily_remaining": "Il vous reste [time] avant de pouvoir récupérer votre gain quotidien.",

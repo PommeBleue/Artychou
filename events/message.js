@@ -1,4 +1,5 @@
 const Parse = require('../structures/parse/Parse');
+const ErrorEmbed = require("../structures/models/embeds/ErrorEmebed");
 const s = require("underscore.string");
 
 module.exports = class {
@@ -13,6 +14,7 @@ module.exports = class {
         //If the user is a bot, return;
         if(message.author.bot) return;
         const settings = this.client.config.defaultSettings;
+        const { channel } = message;
 
         //We are linking some stuff to the message itself so it's easy to access in the command class.
         message.logger = this.client.logger;
@@ -77,7 +79,8 @@ module.exports = class {
             try {
                 return cmd.run(message, args, level, undefined);
             } catch (e) {
-                throw e;
+                const error = new ErrorEmbed(e.message, settings).build();
+                return await channel.send({embed: error});
             }
         }
 
@@ -86,7 +89,8 @@ module.exports = class {
             try {
                 return cmd.run(message, args, level, argsData);
             } catch (e) {
-
+                const error = new ErrorEmbed(e.message, settings).build();
+                return await channel.send({embed: error});
             }
         }
 
@@ -97,11 +101,10 @@ module.exports = class {
                 try {
                     return cmd.run(message, args, level, argData);
                 } catch (e) {
-                    throw e;
+                    const error = new ErrorEmbed(e.message, settings).build();
+                    return await channel.send({embed: error});
                 }
             }
         }
-
-
     }
 };

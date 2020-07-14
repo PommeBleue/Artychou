@@ -1,0 +1,67 @@
+2020-07-08T18:30:20.869546000 0.079519s notice: Recursively removing directory /Users/mac/WebstormProjects/artychou2/rethinkdb_data/tmp
+2020-07-08T18:30:20.871653000 0.081631s notice: Initializing directory /Users/mac/WebstormProjects/artychou2/rethinkdb_data
+2020-07-08T18:30:20.871807000 0.081780s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/Users/mac/WebstormProjects/artychou2/rethinkdb_data' did not already exist or is empty.)
+2020-07-08T18:30:20.872394000 0.082367s notice: Running rethinkdb 2.4.0 (CLANG 11.0.0 (clang-1100.0.33.16))...
+2020-07-08T18:30:20.881299000 0.091273s notice: Running on Darwin 18.7.0 x86_64
+2020-07-08T18:30:20.881409000 0.091384s notice: Loading data from directory /Users/mac/WebstormProjects/artychou2/rethinkdb_data
+2020-07-08T18:30:21.123011000 0.332987s info: Automatically using cache size of 263 MB
+2020-07-08T18:30:21.126078000 0.336054s notice: Listening for intracluster connections on port 29015
+2020-07-08T18:30:21.127624000 0.337600s notice: Listening for client driver connections on port 28015
+2020-07-08T18:30:21.127698000 0.337673s notice: Listening for administrative HTTP connections on port 8080
+2020-07-08T18:30:21.127704000 0.337680s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2020-07-08T18:30:21.127709000 0.337685s notice: Listening on driver addresses: 127.0.0.1, ::1
+2020-07-08T18:30:21.127714000 0.337690s notice: Listening on http addresses: 127.0.0.1, ::1
+2020-07-08T18:30:21.127719000 0.337695s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2020-07-08T18:30:21.127724000 0.337700s notice: Server ready, "MacBook_Pro_de_MAC_local_e6t" 4843ede3-c308-4305-ad9c-57be123e9b43
+2020-07-08T19:15:31.185211000 2710.487787s notice: Server got SIGINT from pid 694, uid 501; shutting down...
+2020-07-08T19:15:31.185508000 2710.488084s notice: Shutting down client connections...
+2020-07-08T19:15:31.194491000 2710.497068s notice: All client connections closed.
+2020-07-08T19:15:31.196199000 2710.498776s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2020-07-08T19:15:31.202505000 2710.505083s notice: Storage engine shut down.
+2020-07-08T19:15:32.559278000 0.018832s notice: Running rethinkdb 2.4.0 (CLANG 11.0.0 (clang-1100.0.33.16))...
+2020-07-08T19:15:32.567627000 0.027178s notice: Running on Darwin 18.7.0 x86_64
+2020-07-08T19:15:32.567726000 0.027275s notice: Loading data from directory /Users/mac/WebstormProjects/artychou2/rethinkdb_data
+2020-07-08T19:15:32.600031000 0.059582s info: Automatically using cache size of 182 MB
+2020-07-08T19:15:32.600828000 0.060379s notice: Listening for intracluster connections on port 29015
+2020-07-08T19:15:32.602383000 0.061933s notice: Listening for client driver connections on port 28015
+2020-07-08T19:15:32.602451000 0.062001s notice: Listening for administrative HTTP connections on port 8080
+2020-07-08T19:15:32.602457000 0.062007s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2020-07-08T19:15:32.602462000 0.062012s notice: Listening on driver addresses: 127.0.0.1, ::1
+2020-07-08T19:15:32.602467000 0.062017s notice: Listening on http addresses: 127.0.0.1, ::1
+2020-07-08T19:15:32.602472000 0.062022s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2020-07-08T19:15:32.602477000 0.062027s notice: Server ready, "MacBook_Pro_de_MAC_local_e6t" 4843ede3-c308-4305-ad9c-57be123e9b43
+2020-07-08T19:16:05.300258000 32.760736s info: Table 2e79f197-fb0e-4891-97d5-382d378a3fd5: Starting a new Raft election for term 1.
+2020-07-08T19:16:05.300806000 32.761284s info: Table 2e79f197-fb0e-4891-97d5-382d378a3fd5: Added replica on this server.
+2020-07-08T19:16:05.310822000 32.771301s info: Table 2e79f197-fb0e-4891-97d5-382d378a3fd5: This server is Raft leader for term 1. Latest log index is 0.
+2020-07-08T19:16:07.132617000 34.593148s info: Table b913aa35-5e29-4ede-b971-0966e2bd982b: Starting a new Raft election for term 1.
+2020-07-08T19:16:07.133052000 34.593583s info: Table b913aa35-5e29-4ede-b971-0966e2bd982b: Added replica on this server.
+2020-07-08T19:16:07.161685000 34.622218s info: Table b913aa35-5e29-4ede-b971-0966e2bd982b: This server is Raft leader for term 1. Latest log index is 0.
+2020-07-08T19:16:11.405574000 38.866226s info: Table 73539754-b5ce-4862-87ef-8beb7e5fa1ba: Starting a new Raft election for term 1.
+2020-07-08T19:16:11.405998000 38.866650s info: Table 73539754-b5ce-4862-87ef-8beb7e5fa1ba: Added replica on this server.
+2020-07-08T19:16:11.417200000 38.877853s info: Table 73539754-b5ce-4862-87ef-8beb7e5fa1ba: This server is Raft leader for term 1. Latest log index is 0.
+2020-07-08T19:16:39.496542000 66.957992s info: Table 30bf8b74-61ef-4c5a-8fea-ea70546d931c: Starting a new Raft election for term 1.
+2020-07-08T19:16:39.497202000 66.958652s info: Table 30bf8b74-61ef-4c5a-8fea-ea70546d931c: Added replica on this server.
+2020-07-08T19:16:39.536552000 66.998003s info: Table 30bf8b74-61ef-4c5a-8fea-ea70546d931c: This server is Raft leader for term 1. Latest log index is 0.
+2020-07-11T10:24:47.652623000 0.017008s notice: Running rethinkdb 2.4.0 (CLANG 11.0.0 (clang-1100.0.33.16))...
+2020-07-11T10:24:47.658792000 0.023174s notice: Running on Darwin 18.7.0 x86_64
+2020-07-11T10:24:47.658881000 0.023262s notice: Loading data from directory /Users/mac/WebstormProjects/artychou2/rethinkdb_data
+2020-07-11T10:24:47.694331000 0.058714s info: Automatically using cache size of 100 MB
+2020-07-11T10:24:47.694342000 0.058725s warn: Cache size does not leave much memory for server and query overhead (available memory: 741 MB).
+2020-07-11T10:24:47.694365000 0.058748s warn: Cache size is very low and may impact performance.
+2020-07-11T10:24:47.695108000 0.059491s notice: Listening for intracluster connections on port 29015
+2020-07-11T10:24:47.779900000 0.144285s notice: Listening for client driver connections on port 28015
+2020-07-11T10:24:47.779967000 0.144353s notice: Listening for administrative HTTP connections on port 8080
+2020-07-11T10:24:47.779973000 0.144358s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2020-07-11T10:24:47.780003000 0.144388s notice: Listening on driver addresses: 127.0.0.1, ::1
+2020-07-11T10:24:47.780007000 0.144392s notice: Listening on http addresses: 127.0.0.1, ::1
+2020-07-11T10:24:47.780010000 0.144395s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2020-07-11T10:24:47.780013000 0.144398s notice: Server ready, "MacBook_Pro_de_MAC_local_e6t" 4843ede3-c308-4305-ad9c-57be123e9b43
+2020-07-11T10:24:48.787044000 1.151464s info: Table b913aa35-5e29-4ede-b971-0966e2bd982b: Starting a new Raft election for term 2.
+2020-07-11T10:24:49.037133000 1.401562s info: Table b913aa35-5e29-4ede-b971-0966e2bd982b: This server is Raft leader for term 2. Latest log index is 2.
+2020-07-11T10:24:49.409860000 1.774301s info: Table 30bf8b74-61ef-4c5a-8fea-ea70546d931c: Starting a new Raft election for term 2.
+2020-07-11T10:24:49.459810000 1.824252s info: Table 2e79f197-fb0e-4891-97d5-382d378a3fd5: Starting a new Raft election for term 2.
+2020-07-11T10:24:49.675100000 2.039551s info: Table 30bf8b74-61ef-4c5a-8fea-ea70546d931c: This server is Raft leader for term 2. Latest log index is 2.
+2020-07-11T10:24:49.705128000 2.069579s info: Table 2e79f197-fb0e-4891-97d5-382d378a3fd5: This server is Raft leader for term 2. Latest log index is 2.
+2020-07-11T10:24:49.719265000 2.083716s info: Table 73539754-b5ce-4862-87ef-8beb7e5fa1ba: Starting a new Raft election for term 2.
+2020-07-11T10:24:49.814768000 2.179223s info: Table 73539754-b5ce-4862-87ef-8beb7e5fa1ba: This server is Raft leader for term 2. Latest log index is 2.
+2020-07-13T13:37:21.196168000 161959.526947s error: Could not write to socket: Protocol wrong type for socket

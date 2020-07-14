@@ -9,6 +9,7 @@ class Daily extends Command {
         super(client, {
             name: "daily",
             description: "Faites-vous de l'argent",
+            category: "economy",
             usage: "tip daily",
             aliases: ["d"],
             params: []

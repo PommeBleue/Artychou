@@ -53,7 +53,7 @@ class Artychou extends Client {
 const client = new Artychou({
     presence: {
         activity: {
-            name: "modifier le passé.️",
+            name: "à torturer les rotules d'enzo.️",
             type: 0
         }
     }

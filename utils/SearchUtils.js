@@ -5,6 +5,10 @@ module.exports.getFullName = (userResolvable, strict = true) => {
     return `${mostName} (${userResolvable.id})`;
 };
 
+module.exports.getRandom = (client, guild) => {
+    const id = client.users.cache.keyArray()[Math.floor(Math.random() * client.users.cache.keyArray().length)];
+    return getMemberById(id, guild);
+};
 
 module.exports.getMemberByMixed = (name, guild) => {
     if (guild == null) return undefined;

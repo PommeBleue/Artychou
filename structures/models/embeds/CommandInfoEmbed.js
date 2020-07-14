@@ -22,9 +22,9 @@ class CommandInfoEmbed extends EmbedBuilder {
             .addField('usage', command.usage, true)
             .addField('category', command.category, true)
             .addField('aliases', command.aliases.map(e => `\`${e}\``).join(' '), true)
-            .addField('exemples', this.command.examples.join('\n'))
             .setColor(color)
             .setFooter(footer, avatar);
+        if(this.command.examples) this.addField('exemples', this.command.examples.join('\n'));
         return this;
     }
 }

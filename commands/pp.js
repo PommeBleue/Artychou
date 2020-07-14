@@ -29,10 +29,10 @@ class ProfilePicture extends Command {
                 return await channel.send({embed: error});
             }
             url = target.user.avatarURL();
-            return await channel.send(`${url}?size=256`);
+            return await channel.send(`${url}?size=4096`);
         }
 
-        await channel.send(`${url}?size=256`);
+        await channel.send(`${url}?size=4096`);
     }
 }
 

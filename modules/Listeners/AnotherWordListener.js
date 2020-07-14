@@ -6,7 +6,7 @@ class AnotherWordListener {
     }
 
     async doAsync(message) {
-        const reformat = message.content !== message.content.toUpperCase();
+        const reformat = message.content === message.content.toUpperCase();
         const str = message.content.toLowerCase();
         const channel = message.channel;
         if(/[(x00-xF7)|(\:\()]+\./gm.test(str)) {

@@ -115,7 +115,7 @@ class TeamsManager {
     }
 
     async CreateNewTeamAsync(name, description, leader) {
-        if(name.length < 3 || name.length > 16) return 'not valid name';
+        if(name.length < 3 || name.length > 32) return 'not valid name';
         const { modules, dbService, usermanager } = this.client;
         const id = modules.module('IdGen').generate(name);
         const safeId = (String(leader).match(/\d+/));

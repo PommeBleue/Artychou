@@ -21,7 +21,7 @@ class Matrix extends Command {
             if(args.length === 1) {
                 const emote = args[0];
                 const emoteSpace = `${emote} `;
-                const isEmote = /<:([a-zA-Z]+):(\d{18})>$/gm.test(emote);
+                const isEmote = /<:([a-zA-Z\-?.=;_]+):(\d{18})>$/gm.test(emote);
                 if(!isEmote) {
                     const error = new ErrorEmbed("Ce que tu as mis n'est pas un émoji.", message.settings).build();
                     return await channel.send({embed : error});

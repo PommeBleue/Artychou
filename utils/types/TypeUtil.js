@@ -24,3 +24,5 @@ module.exports.MONTHS = [
     ['October', 'Octobre', 'octobre'],
     ['November', 'Novembre', 'novembre'],
     ['December', 'Decembre', 'décembre']];
+
+module.exports.FACTS =  ["dog", "cat", "koala", "panda", "fox", "bird"];

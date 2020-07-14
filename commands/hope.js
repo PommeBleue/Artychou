@@ -5,7 +5,7 @@ class Hope extends Command {
     constructor(client) {
         super(client, {
             name: "hope",
-            description: "L'espoir fait vivre.",
+            description: "Ne te suicide pas et garde espoir, il y'a toujours pire dans la vie. Rééquilibre le niveau de dépression du serveur..",
             category: "fun",
             aliases: ["hein"]
         });
