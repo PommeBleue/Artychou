@@ -11,7 +11,7 @@ class Quote extends Command {
         super(client, {
             name: "quote",
             description: "none",
-            category: "fun",
+            category: "image",
             usage: "tip quote",
             aliases: ["hp"],
             params: [],
@@ -19,7 +19,6 @@ class Quote extends Command {
     }
 
     async run(message, args, lvl, data) {
-        const { cleanText } = this;
         const {channel} = message;
         try {
             const max = args.join(' ').length;
@@ -48,22 +47,6 @@ class Quote extends Command {
         } catch (err) {
             throw err;
         }
-    }
-
-    cleanText(args) {
-        const array = [];
-        for(let i in args){
-            const current = args[i];
-            if(current.length > 22) {
-                const part1 = current.slice(0, Math.floor(current.length / 2));
-                const part2 = current.slice(Math.floor(current.length /2) - 1, current.length);
-                array.push(part1);
-                array.push(part2);
-                continue;
-            }
-            array.push(current);
-        }
-        return array;
     }
 }
 

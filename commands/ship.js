@@ -1,15 +1,11 @@
 const Command = require("../structures/Command");
-const { getRandom } = require("../utils/SearchUtils");
-const { percentColor } = require("../utils/UtilFunctions");
-const { createCanvas, loadImage, registerFont } = require('canvas');
+const ErrorEmbed = require("../structures/models/embeds/ErrorEmebed");
+const {getRandom, getMemberByMixed} = require("../utils/SearchUtils");
+const {createCanvas, loadImage, registerFont} = require('canvas');
 const request = require('node-superfetch');
 const path = require('path');
-registerFont(path.join(__dirname, '..', 'src', 'fnts', 'Pinky Cupid.otf'), { family: 'Pinky Cupid' });
-const percentColors = [
-    { pct: 0.0, color: { r: 0, g: 0, b: 255 } },
-    { pct: 0.5, color: { r: 255 / 2, g: 0, b: 255 / 2 } },
-    { pct: 1.0, color: { r: 255, g: 0, b: 0 } }
-];
+registerFont(path.join(__dirname, '..', 'src', 'fnts', 'go-it.otf'), {family: 'George Italic'});
+
 //const couple = [];
 
 class Ship extends Command {
@@ -17,8 +13,8 @@ class Ship extends Command {
         super(client, {
             name: "ship",
             description: "none",
-            category: "fun",
-            usage: "tip neo",
+            category: "image",
+            usage: "tip ship",
             aliases: ["amour"],
             params: [],
             permLevel: "Bot Developer"
@@ -26,71 +22,81 @@ class Ship extends Command {
     }
 
     async run(message, args, lvl, data) {
-        const { client } = this;
-        const { channel, guild } = message;
-        let first = getRandom(client, guild).user;
-        do {
-            first = getRandom(client, guild).user;
-        } while (first.bot);
-        let second;
-        /*if(couple.includes(first.id)) {
-            second = couple[couple.indexOf(first.id) === 1 ? 0 : 1]
-        }*/
-        do {
-            const { user } = getRandom(client, guild);
-            second = user;
-        } while (second === first);
-        const level = Math.floor(Math.random() * 101);
-        const firstAvatarURL = first.displayAvatarURL({ format: 'png', size: 512 });
-        const secondAvatarURL = second.displayAvatarURL({ format: 'png', size: 512 });
+        const {client, calculateLevelText} = this;
+        const {channel, guild, settings, author} = message;
         try {
+            let first = author;
+            let second;
+            switch (args.length) {
+                case 0:
+                    do {
+                        first = getRandom(client, guild).user;
+                    } while (first.bot);
+                    do {
+                        const {user} = getRandom(client, guild);
+                        second = user;
+                    } while (second === first || second.bot);
+                    break;
+                case 1:
+                    const name = args[0];
+                    if (!getMemberByMixed(name, guild)) throw new Error('User not found.');
+                    second = getMemberByMixed(name, guild)["user"];
+                    break;
+                case 2:
+                    const name1 = args[0];
+                    const name2 = args[1];
+                    if (!getMemberByMixed(name1, guild) || !getMemberByMixed(name2, guild)) throw new Error('User not found.');
+                    first = getMemberByMixed(name1, guild)["user"];
+                    second = getMemberByMixed(name2, guild)["user"];
+                    break;
+            }
+            const level = Math.floor(Math.random() * 101);
+            const firstAvatarURL = first.displayAvatarURL({format: 'png', size: 512});
+            const secondAvatarURL = second.displayAvatarURL({format: 'png', size: 512});
             const firstAvatarData = await request.get(firstAvatarURL);
             const firstAvatar = await loadImage(firstAvatarData.body);
             const secondAvatarData = await request.get(secondAvatarURL);
             const secondAvatar = await loadImage(secondAvatarData.body);
-            const base = await loadImage(path.join(__dirname, '..', 'src', 'img', 'ship2.png'));
+            const base = await loadImage(path.join(__dirname, '..', 'src', 'img', 'ship3.png'));
+            const heart = await loadImage(path.join(__dirname, '..', 'src', 'img', 'heart.png'));
+            const multiplier = calculateLevelText(level);
+            const heartCanvas = createCanvas(heart.width * multiplier, heart.height * multiplier);
+            const hCtx = heartCanvas.getContext('2d');
+            hCtx.textAlign = 'center';
+            hCtx.fillStyle = 'white';
+            hCtx.font = `${40 * multiplier}pt George Italic`;
+            hCtx.drawImage(heart, 0, 0, heart.width * multiplier, heart.height * multiplier);
+            hCtx.fillText(`${level}%`, heart.width * multiplier / 2, heart.height * multiplier / 2 + (15 * multiplier));
             const canvas = createCanvas(base.width, base.height);
             const ctx = canvas.getContext('2d');
             ctx.drawImage(firstAvatar, 70, 56, 400, 400);
             ctx.drawImage(secondAvatar, 730, 56, 400, 400);
             ctx.drawImage(base, 0, 0);
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'top';
-            ctx.fillStyle = '#ff6c6c';
-            ctx.font = '40px Pinky Cupid';
-            ctx.fillText('Happy Feet sait qui sont les amoureux.', 600, 15);
-            ctx.fillStyle = 'white';
-            ctx.fillText(first.username, 270, 448);
-            ctx.fillText(second.username, 930, 448);
-            ctx.font = '60px Pinky Cupid';
-            ctx.fillStyle = percentColor(level / 100, percentColors);
-            ctx.fillText(`~${level}%~`, 600, 130);
-            ctx.fillText(this.calculateLevelText(level), 600, 196);
+            ctx.drawImage(heartCanvas, (canvas.width - heartCanvas.width) / 2, (canvas.height - heartCanvas.height) / 2);
+            //ctx.fillStyle = percentColor(level / 100, percentColors);
+            /*ctx.fillText(this.calculateLevelText(level), 600, 196);
             ctx.font = '90px Pinky Cupid';
-            ctx.fillText(level > 49 ? '❤️' : '💔', 600, 100);
-            return channel.send({ files: [{ attachment: canvas.toBuffer(), name: 'ship2.png' }] });
+            ctx.fillText(level > 49 ? '❤️' : '💔', 600, 100);*/
+            return channel.send({files: [{attachment: canvas.toBuffer(), name: 'ship2.png'}]});
         } catch (err) {
-            throw err;
+            const error = new ErrorEmbed(err.message, settings).build();
+            return await channel.send({embed: error});
         }
     }
 
     calculateLevelText(level) {
-        if (level === 0) return 'Abysmal';
-        if (level > 0 && level < 10) return 'Horrid';
-        if (level > 9 && level < 20) return 'Awful';
-        if (level > 19 && level < 30) return 'Very Bad';
-        if (level > 29 && level < 40) return 'Bad';
-        if (level > 39 && level < 50) return 'Poor';
-        if (level > 49 && level < 60) return 'Average';
-        if (level > 59 && level < 70) {
-            if (level === 69) return 'Nice';
-            return 'Fine';
-        }
-        if (level > 69 && level < 80) return 'Good';
-        if (level > 79 && level < 90) return 'Great';
-        if (level > 89 && level < 100) return 'Amazing';
-        if (level === 100) return 'Soulmates';
-        return '???';
+        if (level === 0) return 0.7;
+        if (level > 0 && level < 10) return 0.7;
+        if (level > 9 && level < 20) return 0.7;
+        if (level > 19 && level < 30) return 0.7;
+        if (level > 29 && level < 40) return 0.8;
+        if (level > 39 && level < 50) return 0.85;
+        if (level > 49 && level < 60) return 0.9;
+        if (level > 59 && level < 70) return 1.1;
+        if (level > 69 && level < 80) return 1.2;
+        if (level > 79 && level < 90) return 1.25;
+        if (level > 89 && level < 100) return 1.3;
+        if (level === 100) return 1.5;
     }
 }
 

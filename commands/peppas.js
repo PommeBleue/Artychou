@@ -23,8 +23,7 @@ class Peppas extends Command {
                     type: ["UserID", "Username", "Username#XXXX"],
                     spacedString: true,
                     optional: true,
-                    iParse: ({input, ov}) => getMemberByMixed(input, ov.guild),
-                    iParseFail: () => false
+                    iParse: ({input, ov}) => getMemberByMixed(input, ov.guild)
                 },
                 {
                     name: "amount",

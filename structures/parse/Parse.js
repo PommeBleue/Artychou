@@ -38,7 +38,7 @@ class Parse {
                 if (key.length === 1) continue;
                 if (Array.isArray(parsedObject[key])) {
                     if (parsedObject[key].length === 0) {
-                        if (!(this.params[this.parseOptions.map.get(key)].type.some(e => e === "boolean"))) return 'Object Error'
+                        if (!(this.params[this.parseOptions.map.get(key)].type.some(e => e === "boolean"))) return 'Object Error';
                         // TODO : Error class to send an object that details the error
                         collection.set(key, true);
                     }
@@ -63,7 +63,12 @@ class Parse {
             let current = params[key];
             if (current.iParse && typeof current.iParse === 'function') {
                 const {iParse} = current;
-                if (!(collection.has(current.name))) continue;
+                if (!(collection.has(current.name))) {
+                    if(current.defaultParse && typeof  current.defaultParse === 'function') {
+                        argData[current.name] = current.defaultParse({ov: objectValues});
+                        continue;
+                    }
+                }
                 try {
                     argData[current.name] = iParse({input: collection.get(current.name), ov: objectValues});
                 } catch (e) {
