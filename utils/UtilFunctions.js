@@ -214,3 +214,50 @@ module.exports.streamToArray = (stream) => {
         stream.on('close', onClose);
     });
 };
+
+module.exports.parseArgCombosInner = (args, numParams) => {
+    if (numParams === 0) return [];
+
+    if (args.length < numParams) return null;
+
+    let nowGroups = [];
+
+    const firstParamLastArg = args.length - numParams;
+    nowGroups[0] = args.slice(0, firstParamLastArg + 1);
+    for (let i = 1; i < numParams; i++) {
+        nowGroups[i] = [args[firstParamLastArg + i]];
+    }
+
+    const argCombos = [nowGroups.map(arr => arr.join(' '))];
+
+    if (args.length === numParams) return argCombos;
+
+    let focus = 0;
+    const endFocus = numParams - 1;
+
+    const savePointsStack = [];
+
+    // console.log(nowGroups);
+
+    while (focus !== endFocus || savePointsStack.length > 0) {
+        if (focus === endFocus) {
+            ({ nowGroups, focus } = savePointsStack.pop()); // Restore savepoint when hit end
+        } else {
+            const focusGroup = nowGroups[focus];
+            // console.log(numParams, nowGroups, '|', focus, '|', focusGroup);
+            nowGroups[focus + 1].unshift(focusGroup.pop()); // Move eoFocus to soFocusNext
+            // console.log('-unshifted-');
+            argCombos.push(nowGroups.map(arr => arr.join(' ')));
+            // More than 1 left = Push savepoint
+            if (focusGroup.length > 1) savePointsStack.push({ focus, nowGroups: cloneDeepArray(nowGroups) });
+            focus++; // Next focus
+        }
+    }
+
+    // console.log('parseArgCombos', numParams, args, ':', argCombos);
+
+    return argCombos;
+};
+
+const isArray = obj => !!obj && obj.constructor === Array;
+const cloneDeepArray = arr => arr.map(val => (isArray(val) ? cloneDeepArray(val) : val));

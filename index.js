@@ -3,10 +3,11 @@ if (Number(process.version.slice(1).split(".")[0]) < 12) throw new Error("Node 1
 const { Client } = require("discord.js");
 const InternalPackages = require("./structures/managers/packages/PackageManager");
 const Handler = require('./structures/handlers/Handler');
-const SettingsHandler = require("./structures/handlers/SettingsHandler")
+const SettingsHandler = require("./structures/handlers/SettingsHandler");
 const DataBaseService = require("./database/DataBaseService");
 const UserManager = require("./structures/managers/UserManager");
 const TeamsManger = require("./structures/managers/TeamsManager");
+const GameManager = require("./structures/managers/GameManager");
 const RequestManger = require("./structures/managers/RequestManager");
 const ModulesManager = require("./structures/managers/ModulesManager");
 const SongsGuildManager = require("./structures/managers/SongsGuildManager");
@@ -27,6 +28,7 @@ class Artychou extends Client {
 
         this.usermanager = new UserManager(this);
         this.teamanger = new TeamsManger(this);
+        this.gamemanager = new GameManager(this);
         this.modules = new ModulesManager(this);
         this.requestManager = new RequestManger(this);
         this.songGuildManger = new SongsGuildManager(this);
@@ -41,6 +43,7 @@ class Artychou extends Client {
     async init() {
         await this.usermanager.init();
         await this.teamanger.init();
+        await this.gamemanager.init();
         this.modules.init();
         this.internal.init();
         await this.songGuildManger.init();

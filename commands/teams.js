@@ -12,6 +12,7 @@ class TeamsCommand extends Command {
             category: "teams",
             usage: "tip teams [action] [arguments]",
             guildOnly: true,
+            disabled: true,
             aliases: ["ts"],
             params: []
         });

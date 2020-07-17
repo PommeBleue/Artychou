@@ -1,6 +1,7 @@
 const Command = require("../structures/Command");
 const ErrorEmbed = require("../structures/models/embeds/ErrorEmebed");
 const {getRandom, getMemberByMixed} = require("../utils/SearchUtils");
+const { parse } = require("../utils/ParseUtils");
 const {createCanvas, loadImage, registerFont} = require('canvas');
 const request = require('node-superfetch');
 const path = require('path');
@@ -37,18 +38,26 @@ class Ship extends Command {
                         second = user;
                     } while (second === first || second.bot);
                     break;
-                case 1:
-                    const name = args[0];
+                default:
+                    let result = parse(args, getMemberByMixed, 1, guild);
+                    if (!result) {
+                        result = parse(args, getMemberByMixed, 2, guild);
+                        if(!result) throw new Error('User not found');
+                        first = result[0]["user"];
+                        second = result[1]["user"];
+                        break;
+                    }
+                    second = result[0]["user"];
+                /*case 1:
+                    const name = args.join(' ');
                     if (!getMemberByMixed(name, guild)) throw new Error('User not found.');
                     second = getMemberByMixed(name, guild)["user"];
                     break;
                 case 2:
-                    const name1 = args[0];
-                    const name2 = args[1];
-                    if (!getMemberByMixed(name1, guild) || !getMemberByMixed(name2, guild)) throw new Error('User not found.');
+
                     first = getMemberByMixed(name1, guild)["user"];
                     second = getMemberByMixed(name2, guild)["user"];
-                    break;
+                    break;*/
             }
             const level = Math.floor(Math.random() * 101);
             const firstAvatarURL = first.displayAvatarURL({format: 'png', size: 512});

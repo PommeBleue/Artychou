@@ -28,11 +28,11 @@ class Achievement extends Command {
         const canvas = createCanvas(base.width, base.height);
         const ctx = canvas.getContext('2d');
         ctx.drawImage(base, 0, 0);
-        ctx.font = '17px Minecraftia';
+        ctx.font = '10px Minecraftia';
         ctx.fillStyle = '#ffff00';
-        ctx.fillText('Tu as enfin accompli quelque chose.', 60, 40);
+        ctx.fillText('Tu as enfin accompli quelque chose.', 55, 35);
         ctx.fillStyle = '#ffffff';
-        ctx.fillText(shortenText(ctx, text, 230), 60, 60);
+        ctx.fillText(shortenText(ctx, text, 230), 55, 50);
         return await channel.send({ files: [{ attachment: canvas.toBuffer(), name: 'achievement.png' }] });
     }
 }

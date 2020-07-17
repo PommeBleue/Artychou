@@ -6,7 +6,7 @@ const util = require("../../utils/UtilsJson");
 class ExtraitsListener {
     constructor(client) {
         this.client = client;
-        this.path = `${__dirname}/../../structures/models/json/extraits.json`;
+        this.path = path.join(__dirname, '..', '..', 'structures', 'models', 'json', 'extraits.json');
     }
 
     async doAsync(message) {

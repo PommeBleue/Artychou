@@ -60,7 +60,7 @@ class Triggered extends Command {
     getUser(args, message) {
         const { author, guild } = message;
         if(args.length) {
-            const name = args[0];
+            const name = args.join(' ');
             const member = getMemberByMixed(name, guild);
             if(!member) throw new Error('User not found.');
             return member;

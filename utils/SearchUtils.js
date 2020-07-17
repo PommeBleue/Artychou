@@ -31,13 +31,16 @@ const getSafeId = id => (id.match(/\d+/) || [])[0];
 
 const getMemberByName = (name, guild) => {
     // [v3.0] Visible name match, real name match, length match, caps match, position match
-    if (guild == null) return undefined;
+    if (guild === null) return undefined;
 
     const nameDiscrim = getDiscriminatorFromName(name);
     if (nameDiscrim) {
         const namePre = name.substr(0, name.length - 5);
         const member = guild.members.cache.find(m => m.user.username === namePre && m.user.discriminator === nameDiscrim);
         if (member) return member;
+    } else {
+        const member = guild.members.cache.find(m => m.user.username.toLowerCase() === name.toLowerCase());
+        if(member) return member;
     }
 
     let removeUnicode = true;
@@ -45,7 +48,7 @@ const getMemberByName = (name, guild) => {
 
     name = name.replace(/[^\x00-\x7F]/g, '').trim();
 
-    if (name.length == 0) {
+    if (name.length === 0) {
         name = origName;
         removeUnicode = false;
     }
