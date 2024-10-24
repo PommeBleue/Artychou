@@ -56,7 +56,7 @@ class Artychou extends Client {
 const client = new Artychou({
     presence: {
         activity: {
-            name: "à torturer les rotules d'enzo.️",
+            name: "Something",
             type: 0
         }
     }
@@ -66,5 +66,5 @@ const client = new Artychou({
 
 client.on('ready', async () => {
     await client.init();
-    client.logger.log('Artychou is ready, bitch.', "ready");
+    client.logger.log('Artychou is ready.', "ready");
 });
