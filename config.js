@@ -9,13 +9,13 @@ ArtychouConfig = {
 
     "prefixes": ["tip", "artychou.", "t-"],
 
-    "owner": "479332968242872323",
+    "owner": "0000000000000000000",
 
-    "admins": ["390071894226894850", "397492826125893633", "569205521903648780", "470136226381561867", "729622409170124820"],
+    "admins": ["0000000000000000000"],
 
-    "developers": ["479332968242872323"],
+    "developers": ["0000000000000000000"],
 
-    "special": ["390071894226894850", "397492826125893633"],
+    "special": ["0000000000000000000"],
 
     "token": process.env.TOKEN,
 
@@ -27,7 +27,7 @@ ArtychouConfig = {
         "systemNotice": true,
         "welcomeEnabled": false,
         "welcomeChannel": "général",
-        "welcomeMessage": "Dites bonjour à {{user}}, les salopes ! Et n'oubliez pas, faut qu'elle (ou il) devienne fou avant de quitter le serveur :D",
+        "welcomeMessage": "Dites bonjour à {{user}} ! Et n'oubliez pas, faut qu'elle (ou il) devienne fou avant de quitter le serveur :D",
     },
 
     permLevels: [
